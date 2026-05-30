@@ -1,0 +1,2111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burgers Menu - Ice Cream Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #ff6b35 40%, #fff3e0 70%, #ffe0b2 100%);
+            min-height: 100vh;
+            background-attachment: fixed;
+            position: relative;
+            overflow-x: hidden;
+            color: #2c3e50;
+        }
+
+        /* Minimal particles background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.3;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 152, 0, 0.4);
+            border-radius: 50%;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) translateX(0);
+            }
+
+            50% {
+                transform: translateY(-10px) translateX(5px);
+            }
+        }
+
+        /* Subtle blob effects */
+        .blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .blob-1 {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #ff9800, #ff5722);
+            top: -50px;
+            right: -50px;
+        }
+
+        .blob-2 {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #ffb74d, #ff9800);
+            bottom: -30px;
+            left: -30px;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 15px 20px;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            overflow: visible;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ff6b35;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            position: relative;
+            overflow: visible;
+        }
+
+        .cart-btn-navbar {
+            background: linear-gradient(145deg, #ff8c42 0%, #ff6b35 50%, #ff5722 100%);
+            border: none;
+            border-radius: 16px;
+            padding: 14px 22px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            color: white;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow:
+                0 12px 35px rgba(255, 107, 53, 0.4),
+                0 6px 20px rgba(255, 107, 53, 0.3),
+                0 2px 8px rgba(255, 107, 53, 0.2),
+                inset 0 3px 6px rgba(255, 255, 255, 0.4),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: visible;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .cart-btn-navbar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                    transparent 0%,
+                    rgba(255, 255, 255, 0.6) 50%,
+                    transparent 100%);
+            transition: left 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .cart-btn-navbar::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            right: 3px;
+            bottom: 3px;
+            background: linear-gradient(135deg,
+                    rgba(255, 255, 255, 0.3) 0%,
+                    transparent 40%,
+                    rgba(0, 0, 0, 0.1) 100%);
+            border-radius: 13px;
+            pointer-events: none;
+        }
+
+        .cart-btn-navbar:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow:
+                0 20px 50px rgba(255, 107, 53, 0.5),
+                0 12px 35px rgba(255, 107, 53, 0.4),
+                0 4px 15px rgba(255, 107, 53, 0.3),
+                0 0 25px rgba(255, 107, 53, 0.2),
+                inset 0 3px 6px rgba(255, 255, 255, 0.5),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .cart-btn-navbar:hover::before {
+            left: 100%;
+        }
+
+        .cart-btn-navbar:active {
+            transform: translateY(-2px) scale(0.98);
+            box-shadow:
+                0 8px 25px rgba(255, 107, 53, 0.3),
+                0 4px 15px rgba(255, 107, 53, 0.2),
+                0 1px 6px rgba(255, 107, 53, 0.1),
+                inset 0 2px 4px rgba(0, 0, 0, 0.2),
+                inset 0 -1px 2px rgba(255, 255, 255, 0.3);
+        }
+
+        .cart-count-navbar {
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            background: linear-gradient(145deg, #ff4757 0%, #ff3742 50%, #e74c3c 100%);
+            color: white;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 800;
+            border: 2px solid white;
+            box-shadow:
+                0 8px 25px rgba(255, 71, 87, 0.6),
+                0 4px 15px rgba(255, 71, 87, 0.4),
+                0 2px 8px rgba(255, 71, 87, 0.3),
+                inset 0 2px 4px rgba(255, 255, 255, 0.5),
+                inset 0 -1px 2px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+            animation: pulse-badge 3s ease-in-out infinite;
+            z-index: 5;
+            min-width: 28px;
+            min-height: 28px;
+        }
+
+        @keyframes pulse-badge {
+
+            0%,
+            100% {
+                transform: scale(1);
+                box-shadow:
+                    0 8px 25px rgba(255, 71, 87, 0.6),
+                    0 4px 15px rgba(255, 71, 87, 0.4),
+                    0 2px 8px rgba(255, 71, 87, 0.3),
+                    inset 0 2px 4px rgba(255, 255, 255, 0.5),
+                    inset 0 -1px 2px rgba(0, 0, 0, 0.3);
+            }
+
+            50% {
+                transform: scale(1.2);
+                box-shadow:
+                    0 12px 35px rgba(255, 71, 87, 0.8),
+                    0 6px 20px rgba(255, 71, 87, 0.6),
+                    0 3px 12px rgba(255, 71, 87, 0.4),
+                    inset 0 2px 4px rgba(255, 255, 255, 0.6),
+                    inset 0 -1px 2px rgba(0, 0, 0, 0.4);
+            }
+        }
+
+        .back-btn {
+            padding: 16px 32px;
+            background: linear-gradient(145deg, #74b9ff 0%, #667eea 50%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 18px;
+            font-weight: 700;
+            font-size: 14px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow:
+                0 10px 30px rgba(102, 126, 234, 0.4),
+                0 5px 18px rgba(102, 126, 234, 0.3),
+                0 2px 8px rgba(102, 126, 234, 0.2),
+                inset 0 3px 6px rgba(255, 255, 255, 0.4),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            backdrop-filter: blur(10px);
+            z-index: 10;
+        }
+
+        .back-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                    transparent 0%,
+                    rgba(255, 255, 255, 0.6) 50%,
+                    transparent 100%);
+            transition: left 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+        }
+
+        .back-btn::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            right: 3px;
+            bottom: 3px;
+            background: linear-gradient(135deg,
+                    rgba(255, 255, 255, 0.3) 0%,
+                    transparent 50%,
+                    rgba(255, 255, 255, 0.1) 100%);
+            border-radius: 15px;
+            pointer-events: none;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow:
+                0 18px 45px rgba(102, 126, 234, 0.5),
+                0 10px 30px rgba(102, 126, 234, 0.4),
+                0 4px 15px rgba(102, 126, 234, 0.3),
+                0 0 25px rgba(102, 126, 234, 0.2),
+                inset 0 3px 6px rgba(255, 255, 255, 0.5),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-btn:hover::before {
+            left: 100%;
+        }
+
+        .back-btn:active {
+            transform: translateY(-2px) scale(0.98);
+            box-shadow:
+                0 6px 20px rgba(102, 126, 234, 0.3),
+                0 3px 12px rgba(102, 126, 234, 0.2),
+                0 1px 6px rgba(102, 126, 234, 0.1),
+                inset 0 2px 4px rgba(0, 0, 0, 0.2),
+                inset 0 -1px 2px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Split Hero Section */
+        .hero-section {
+            position: relative;
+            padding: 100px 20px 80px;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            min-height: 80vh;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content {
+            z-index: 3;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            color: white;
+            margin-bottom: 24px;
+            letter-spacing: -2px;
+            line-height: 1.1;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 40px;
+            font-weight: 500;
+            line-height: 1.5;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-cta {
+            display: inline-block;
+            padding: 20px 52px;
+            background: linear-gradient(145deg, #ff8c42 0%, #ff6b35 50%, #ff5722 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 24px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            box-shadow:
+                0 15px 40px rgba(255, 107, 53, 0.5),
+                0 8px 25px rgba(255, 107, 53, 0.4),
+                0 3px 12px rgba(255, 107, 53, 0.3),
+                inset 0 4px 8px rgba(255, 255, 255, 0.4),
+                inset 0 -3px 6px rgba(0, 0, 0, 0.15);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            position: relative;
+            overflow: hidden;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                    transparent 0%,
+                    rgba(255, 255, 255, 0.7) 50%,
+                    transparent 100%);
+            transition: left 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .hero-cta::after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            right: 4px;
+            bottom: 4px;
+            background: linear-gradient(135deg,
+                    rgba(255, 255, 255, 0.35) 0%,
+                    transparent 40%,
+                    rgba(0, 0, 0, 0.1) 100%);
+            border-radius: 20px;
+            pointer-events: none;
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow:
+                0 25px 60px rgba(255, 107, 53, 0.6),
+                0 15px 40px rgba(255, 107, 53, 0.5),
+                0 6px 20px rgba(255, 107, 53, 0.4),
+                0 0 35px rgba(255, 107, 53, 0.3),
+                inset 0 4px 8px rgba(255, 255, 255, 0.5),
+                inset 0 -3px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-cta:hover::before {
+            left: 100%;
+        }
+
+        .hero-cta:active {
+            transform: translateY(-3px) scale(0.98);
+            box-shadow:
+                0 10px 30px rgba(255, 107, 53, 0.4),
+                0 5px 18px rgba(255, 107, 53, 0.3),
+                0 2px 8px rgba(255, 107, 53, 0.2),
+                inset 0 3px 6px rgba(0, 0, 0, 0.2),
+                inset 0 -2px 4px rgba(255, 255, 255, 0.3);
+        }
+
+        .hero-image-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-glow {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 107, 53, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(60px);
+            z-index: 1;
+            animation: float-glow 4s ease-in-out infinite;
+        }
+
+        @keyframes float-glow {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+            }
+
+            50% {
+                transform: translateY(-20px) scale(1.1);
+            }
+        }
+
+        .hero-image {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            object-fit: contain;
+            position: relative;
+            z-index: 2;
+            filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.4));
+            animation: float-burger 6s ease-in-out infinite;
+        }
+
+        @keyframes float-burger {
+
+            0%,
+            100% {
+                transform: translateY(0) rotateX(0);
+            }
+
+            25% {
+                transform: translateY(-15px) rotateX(5deg);
+            }
+
+            50% {
+                transform: translateY(-10px) rotateX(-3deg);
+            }
+
+            75% {
+                transform: translateY(-20px) rotateX(2deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 60px 20px 40px;
+                min-height: auto;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .hero-image {
+                max-width: 350px;
+            }
+
+            .hero-glow {
+                width: 300px;
+                height: 300px;
+            }
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .cart-btn {
+            padding: 10px 25px;
+            background: linear-gradient(135deg, #f39c12, #e74c3c);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: #6c757d;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 60px 20px 40px;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .cart-btn-clean {
+                width: 50px;
+                height: 50px;
+                font-size: 18px;
+            }
+
+            .cart-count-clean {
+                width: 18px;
+                height: 18px;
+                font-size: 10px;
+            }
+        }
+
+        @keyframes titleGlow {
+            from {
+                text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+            }
+
+            to {
+                text-shadow: 3px 3px 20px rgba(255, 255, 255, 0.5), 0 0 30px rgba(243, 156, 18, 0.4);
+            }
+        }
+
+        .page-subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 20px;
+            margin-bottom: 50px;
+            font-weight: 500;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .menu-item {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0;
+            transform: translateY(30px) rotateX(5deg);
+            animation: fadeInUp 0.8s ease forwards;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.05), rgba(255, 255, 255, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            border-radius: 20px;
+            pointer-events: none;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-12px) rotateX(0deg) scale(1.02);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15),
+                0 0 40px rgba(255, 107, 53, 0.1);
+        }
+
+        .menu-item:hover::before {
+            opacity: 1;
+        }
+
+        .menu-item:hover .item-image {
+            transform: scale(1.08) rotateY(3deg);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .item-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .item-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .item-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        .item-description {
+            color: #6c757d;
+            font-size: 14px;
+            margin-bottom: 15px;
+            line-height: 1.4;
+            flex-grow: 1;
+        }
+
+        .item-price {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ff6b35;
+            margin-bottom: 15px;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: 16px 24px;
+            background: linear-gradient(145deg, #ff8c42 0%, #ff6b35 50%, #ff5722 100%);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow:
+                0 10px 30px rgba(255, 107, 53, 0.4),
+                0 5px 18px rgba(255, 107, 53, 0.3),
+                0 2px 8px rgba(255, 107, 53, 0.2),
+                inset 0 3px 6px rgba(255, 255, 255, 0.4),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            margin-top: auto;
+            backdrop-filter: blur(10px);
+        }
+
+        .add-to-cart::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                    transparent 0%,
+                    rgba(255, 255, 255, 0.6) 50%,
+                    transparent 100%);
+            transition: left 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .add-to-cart::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            right: 3px;
+            bottom: 3px;
+            background: linear-gradient(135deg,
+                    rgba(255, 255, 255, 0.3) 0%,
+                    transparent 40%,
+                    rgba(0, 0, 0, 0.1) 100%);
+            border-radius: 13px;
+            pointer-events: none;
+        }
+
+        .add-to-cart:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow:
+                0 18px 45px rgba(255, 107, 53, 0.5),
+                0 10px 30px rgba(255, 107, 53, 0.4),
+                0 4px 15px rgba(255, 107, 53, 0.3),
+                0 0 25px rgba(255, 107, 53, 0.2),
+                inset 0 3px 6px rgba(255, 255, 255, 0.5),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .add-to-cart:hover::before {
+            left: 100%;
+        }
+
+        .add-to-cart:active {
+            transform: translateY(-2px) scale(0.98);
+            box-shadow:
+                0 6px 20px rgba(255, 107, 53, 0.3),
+                0 3px 12px rgba(255, 107, 53, 0.2),
+                0 1px 6px rgba(255, 107, 53, 0.1),
+                inset 0 2px 4px rgba(0, 0, 0, 0.2),
+                inset 0 -1px 2px rgba(255, 255, 255, 0.3);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 2% auto;
+            padding: 0;
+            border-radius: 20px;
+            width: 95%;
+            max-width: 800px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modalSlide 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @keyframes modalSlide {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            padding: 20px 30px;
+            background: linear-gradient(135deg, #f39c12, #e74c3c);
+            color: white;
+            border-radius: 20px 20px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-btn {
+            font-size: 30px;
+            cursor: pointer;
+            color: white;
+        }
+
+        .modal-body {
+            padding: 25px;
+            max-height: 60vh;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: #f39c12 transparent;
+        }
+
+        .cart-item-premium {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #dee2e6;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-item-premium:hover {
+            transform: translateY(-5px) rotateX(5deg) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15),
+                0 0 25px rgba(255, 107, 107, 0.1);
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+        }
+
+        .cart-item-image {
+            width: 65px;
+            height: 65px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 3px solid #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
+        }
+
+        .cart-item-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .cart-item-name {
+            font-weight: 700;
+            font-size: 16px;
+            color: #2d3436;
+            margin-bottom: 4px;
+        }
+
+        .cart-item-price {
+            font-size: 14px;
+            color: #e74c3c;
+            font-weight: 600;
+        }
+
+        .cart-item-subtotal {
+            font-size: 12px;
+            color: #636e72;
+            margin-top: 2px;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .qty-btn {
+            width: 32px;
+            height: 32px;
+            border: none;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            color: white;
+        }
+
+        .qty-btn.minus {
+            background: linear-gradient(135deg, #ff7675, #e74c3c);
+            box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3);
+        }
+
+        .qty-btn.plus {
+            background: linear-gradient(135deg, #00b894, #55efc4);
+            box-shadow: 0 4px 10px rgba(0, 184, 148, 0.3);
+        }
+
+        .qty-btn:hover {
+            transform: scale(1.1) translateY(-2px);
+            filter: brightness(1.1);
+        }
+
+        .qty-display {
+            font-weight: 700;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .remove-btn {
+            background: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .remove-btn:hover {
+            background: #e74c3c;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .checkout-btn {
+            background: linear-gradient(145deg, #f5b041 0%, #f39c12 50%, #e74c3c 100%) !important;
+            color: white !important;
+            border: none !important;
+            padding: 18px 36px !important;
+            border-radius: 20px !important;
+            font-weight: 800 !important;
+            font-size: 15px !important;
+            text-transform: uppercase !important;
+            letter-spacing: 1.2px !important;
+            cursor: pointer !important;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+            box-shadow:
+                0 12px 35px rgba(231, 76, 60, 0.4),
+                0 6px 20px rgba(231, 76, 60, 0.3),
+                0 2px 8px rgba(231, 76, 60, 0.2),
+                inset 0 3px 6px rgba(255, 255, 255, 0.4),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.15) !important;
+            position: relative !important;
+            overflow: hidden !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+            backdrop-filter: blur(10px) !important;
+        }
+
+        .checkout-btn::before {
+            content: '' !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: -100% !important;
+            width: 100% !important;
+            height: 100% !important;
+            background: linear-gradient(90deg,
+                    transparent 0%,
+                    rgba(255, 255, 255, 0.6) 50%,
+                    transparent 100%) !important;
+            transition: left 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+        }
+
+        .checkout-btn::after {
+            content: '' !important;
+            position: absolute !important;
+            top: 3px !important;
+            left: 3px !important;
+            right: 3px !important;
+            bottom: 3px !important;
+            background: linear-gradient(135deg,
+                    rgba(255, 255, 255, 0.3) 0%,
+                    transparent 40%,
+                    rgba(0, 0, 0, 0.1) 100%) !important;
+            border-radius: 17px !important;
+            pointer-events: none !important;
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-6px) scale(1.02) !important;
+            box-shadow:
+                0 20px 50px rgba(231, 76, 60, 0.5),
+                0 12px 35px rgba(231, 76, 60, 0.4),
+                0 4px 15px rgba(231, 76, 60, 0.3),
+                0 0 25px rgba(231, 76, 60, 0.2),
+                inset 0 3px 6px rgba(255, 255, 255, 0.5),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.2) !important;
+        }
+
+        .checkout-btn:hover::before {
+            left: 100% !important;
+        }
+
+        .checkout-btn:active {
+            transform: translateY(-2px) scale(0.98) !important;
+            box-shadow:
+                0 8px 25px rgba(231, 76, 60, 0.3),
+                0 4px 15px rgba(231, 76, 60, 0.2),
+                0 1px 6px rgba(231, 76, 60, 0.1),
+                inset 0 2px 4px rgba(0, 0, 0, 0.2),
+                inset 0 -1px 2px rgba(255, 255, 255, 0.3) !important;
+        }
+
+        .pay-btn {
+            background: linear-gradient(145deg, #ff6b6b 0%, #e17055 50%, #d63031 100%) !important;
+            color: white !important;
+            border: none !important;
+            border-radius: 22px !important;
+            padding: 18px 42px !important;
+            font-weight: 800 !important;
+            font-size: 15px !important;
+            text-transform: uppercase !important;
+            letter-spacing: 1.2px !important;
+            cursor: pointer !important;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+            box-shadow:
+                0 12px 35px rgba(214, 48, 49, 0.4),
+                0 6px 20px rgba(214, 48, 49, 0.3),
+                0 2px 8px rgba(214, 48, 49, 0.2),
+                inset 0 3px 6px rgba(255, 255, 255, 0.4),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.15) !important;
+            position: relative !important;
+            overflow: hidden !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+            backdrop-filter: blur(10px) !important;
+        }
+
+        .pay-btn::before {
+            content: '' !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: -100% !important;
+            width: 100% !important;
+            height: 100% !important;
+            background: linear-gradient(90deg,
+                    transparent 0%,
+                    rgba(255, 255, 255, 0.6) 50%,
+                    transparent 100%) !important;
+            transition: left 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+        }
+
+        .pay-btn::after {
+            content: '' !important;
+            position: absolute !important;
+            top: 3px !important;
+            left: 3px !important;
+            right: 3px !important;
+            bottom: 3px !important;
+            background: linear-gradient(135deg,
+                    rgba(255, 255, 255, 0.3) 0%,
+                    transparent 40%,
+                    rgba(0, 0, 0, 0.1) 100%) !important;
+            border-radius: 19px !important;
+            pointer-events: none !important;
+        }
+
+        .pay-btn:hover {
+            transform: translateY(-6px) scale(1.02) !important;
+            box-shadow:
+                0 20px 50px rgba(214, 48, 49, 0.5),
+                0 12px 35px rgba(214, 48, 49, 0.4),
+                0 4px 15px rgba(214, 48, 49, 0.3),
+                0 0 25px rgba(214, 48, 49, 0.2),
+                inset 0 3px 6px rgba(255, 255, 255, 0.5),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.2) !important;
+        }
+
+        .pay-btn:hover::before {
+            left: 100% !important;
+        }
+
+        .pay-btn:active {
+            transform: translateY(-2px) scale(0.98) !important;
+            box-shadow:
+                0 8px 25px rgba(214, 48, 49, 0.3),
+                0 4px 15px rgba(214, 48, 49, 0.2),
+                0 1px 6px rgba(214, 48, 49, 0.1),
+                inset 0 2px 4px rgba(0, 0, 0, 0.2),
+                inset 0 -1px 2px rgba(255, 255, 255, 0.3) !important;
+        }
+
+        .back-btn {
+            background: linear-gradient(135deg, #636e72, #2d3436) !important;
+            color: white !important;
+            box-shadow: 0 8px 25px rgba(45, 52, 54, 0.4) !important;
+            border-radius: 50px !important;
+            padding: 12px 25px !important;
+            border: none !important;
+            font-weight: 700 !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .back-btn:hover {
+            transform: scale(1.05) translateY(-2px) !important;
+            box-shadow: 0 12px 35px rgba(45, 52, 54, 0.5) !important;
+        }
+
+        .back-btn-menu {
+            background: linear-gradient(135deg, #74b9ff, #0984e3) !important;
+            color: white !important;
+            border: none !important;
+            padding: 10px 20px !important;
+            border-radius: 25px !important;
+            font-weight: 600 !important;
+            font-size: 14px !important;
+            cursor: pointer !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 4px 15px rgba(9, 132, 227, 0.3) !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 5px !important;
+        }
+
+        .back-btn-menu:hover {
+            transform: scale(1.05) translateY(-2px) !important;
+            box-shadow: 0 6px 20px rgba(9, 132, 227, 0.4) !important;
+            background: linear-gradient(135deg, #0984e3, #74b9ff) !important;
+        }
+
+        .modal-footer {
+            padding: 20px 30px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-total {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 2000;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 32px;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Payment Steps Styling */
+        .payment-step {
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .payment-methods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .payment-method-option {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 249, 250, 0.95));
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .payment-method-option:hover {
+            transform: translateY(-5px) scale(1.05);
+            border-color: #e74c3c;
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.3);
+        }
+
+        .payment-icon {
+            font-size: 40px;
+            margin-bottom: 5px;
+        }
+
+        .payment-method-option span {
+            font-weight: 600;
+            color: #495057;
+            font-size: 14px;
+        }
+
+        .payment-section {
+            margin-top: 15px;
+            padding: 22px;
+            background: linear-gradient(135deg, #fff5f5, #fff);
+            border-radius: 20px;
+            border: 2px solid rgba(231, 76, 60, 0.15);
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.08);
+        }
+
+        .payment-form input,
+        .payment-form textarea,
+        .payment-form select {
+            width: 100%;
+            padding: 11px 14px;
+            border: 2px solid rgba(231, 76, 60, 0.2);
+            border-radius: 12px;
+            font-size: 14px;
+            background: #fff;
+            transition: all 0.3s ease;
+            outline: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .payment-form input:focus,
+        .payment-form textarea:focus,
+        .payment-form select:focus {
+            border-color: #e74c3c;
+            box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.12), 0 4px 12px rgba(231, 76, 60, 0.18);
+            transform: translateY(-1px);
+        }
+
+        .payment-form .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-bottom: 12px;
+        }
+
+        .payment-form label {
+            font-weight: 600;
+            font-size: 13px;
+            color: #555;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Minimal particles background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Subtle blob effects -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <header class="header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">🍔 Burgers</a>
+            <div class="nav-buttons">
+                <button class="back-btn" onclick="window.location.href='index.html'">← Back to Home</button>
+                <button class="cart-btn-navbar" onclick="openCart(); return false;">
+                    🛒 Cart
+                    <span class="cart-count-navbar" id="cart-count-navbar">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Split Hero Section -->
+    <section class="hero-section">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">🍔 Premium Burgers</h1>
+                <p class="hero-subtitle">Experience the ultimate burger sensation with our handcrafted masterpieces made
+                    from the finest ingredients</p>
+                <a href="#menu" class="hero-cta">Explore Menu</a>
+            </div>
+            <div class="hero-image-container">
+                <div class="hero-glow"></div>
+                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800" alt="Premium Burger"
+                    class="hero-image">
+            </div>
+        </div>
+    </section>
+
+    <div class="container" id="menu">
+        <h1 class="page-title">🍔 Delicious Burgers</h1>
+        <p class="page-subtitle">Juicy burgers with premium ingredients</p>
+
+        <div class="menu-grid">
+            <div class="menu-item">
+                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500" alt="Classic Cheeseburger"
+                    class="item-image" onerror="this.src='https://placehold.co/300x200?text=Cheeseburger'">
+                <div class="item-content">
+                    <h3 class="item-name">🍔 Classic Cheeseburger</h3>
+                    <p class="item-description">Beef patty with melted cheese</p>
+                    <div class="item-price">₹746</div>
+                    <button class="add-to-cart"
+                        onclick="addToCart('Classic Cheeseburger', 746, 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500')">Add
+                        to Cart</button>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=500" alt="Double Stack Burger"
+                    class="item-image" onerror="this.src='https://placehold.co/300x200?text=Double+Stack'">
+                <div class="item-content">
+                    <h3 class="item-name">🥩 Double Stack Burger</h3>
+                    <p class="item-description">Two beef patties with special sauce</p>
+                    <div class="item-price">₹1078</div>
+                    <button class="add-to-cart"
+                        onclick="addToCart('Double Stack Burger', 1078, 'https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=500')">Add
+                        to Cart</button>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="https://images.immediate.co.uk/production/volatile/sites/30/2025/04/Crispiest-buttermilk-fried-chicken-burgers-90854e5.jpg"
+                    alt="Crispy Chicken Burger" class="item-image"
+                    onerror="this.src='https://placehold.co/300x200?text=Chicken+Burger'">
+                <div class="item-content">
+                    <h3 class="item-name">🍗 Crispy Chicken Burger</h3>
+                    <p class="item-description">Fried chicken with lettuce and mayo</p>
+                    <div class="item-price">₹829</div>
+                    <button class="add-to-cart"
+                        onclick="addToCart('Crispy Chicken Burger', 829, 'https://images.immediate.co.uk/production/volatile/sites/30/2025/04/Crispiest-buttermilk-fried-chicken-burgers-90854e5.jpg')">Add
+                        to Cart</button>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=500" alt="Veggie Supreme"
+                    class="item-image" onerror="this.src='https://placehold.co/300x200?text=Veggie+Burger'">
+                <div class="item-content">
+                    <h3 class="item-name">🥬 Veggie Supreme</h3>
+                    <p class="item-description">Plant-based patty with fresh veggies</p>
+                    <div class="item-price">₹912</div>
+                    <button class="add-to-cart"
+                        onclick="addToCart('Veggie Supreme', 912, 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=500')">Add
+                        to Cart</button>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=500" alt="BBQ Bacon Burger"
+                    class="item-image" onerror="this.src='https://placehold.co/300x200?text=BBQ+Bacon'">
+                <div class="item-content">
+                    <h3 class="item-name">🔥 BBQ Bacon Burger</h3>
+                    <p class="item-description">Smoky BBQ sauce with crispy bacon</p>
+                    <div class="item-price">₹995</div>
+                    <button class="add-to-cart"
+                        onclick="addToCart('BBQ Bacon Burger', 995, 'https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=500')">Add
+                        to Cart</button>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=500"
+                    alt="Mushroom Swiss Burger" class="item-image"
+                    onerror="this.src='https://placehold.co/300x200?text=Mushroom+Swiss'">
+                <div class="item-content">
+                    <h3 class="item-name">🍄 Mushroom Swiss</h3>
+                    <p class="item-description">Sautéed mushrooms with Swiss cheese</p>
+                    <div class="item-price">₹871</div>
+                    <button class="add-to-cart"
+                        onclick="addToCart('Mushroom Swiss', 871, 'https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=500')">Add
+                        to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🛒 Your Cart</h2>
+                <span class="close-btn" onclick="closeCart()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="cart-items"></div>
+                <div id="cart-empty" class="cart-empty-state">
+                    <div class="cart-empty-icon">🍔</div>
+                    <p>Your cart is empty</p>
+                    <small>Add some delicious burgers!</small>
+                </div>
+
+                <!-- Payment Form -->
+                <div id="payment-section" class="payment-section" style="display: none;">
+                    <!-- Step 1: Delivery Address -->
+                    <div id="address-step" class="payment-step">
+                        <h3>📍 Delivery Details</h3>
+                        <div class="payment-form">
+                            <div class="form-group">
+                                <label>Full Name *</label>
+                                <input type="text" id="delivery-name" placeholder="Enter your full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number *</label>
+                                <input type="tel" id="phone-number" placeholder="Enter 10-digit mobile number"
+                                    maxlength="10" required>
+                                <small style="color: #666; font-size: 12px;">Enter 10-digit mobile number</small>
+                            </div>
+                            <div class="form-group">
+                                <label>Delivery Address *</label>
+                                <textarea id="delivery-address" placeholder="Enter your delivery address" rows="3"
+                                    required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>City *</label>
+                                <input type="text" id="delivery-city" placeholder="City" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Zip Code (India) *</label>
+                                <input type="text" id="delivery-zipcode" placeholder="XXXXXX" maxlength="6" required>
+                                <small style="color: #666; font-size: 12px;">6-digit Indian zip code</small>
+                            </div>
+                            <button class="pay-btn" onclick="showPaymentMethods()">Proceed to Payment →</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Payment Method Selection -->
+                    <div id="payment-methods-step" class="payment-step" style="display: none;">
+                        <h3>💳 Choose Payment Method</h3>
+                        <div class="payment-methods-grid">
+                            <div class="payment-method-option" onclick="selectPaymentMethod('card')">
+                                <div class="payment-icon">💳</div>
+                                <span>Credit/Debit Card</span>
+                            </div>
+                            <div class="payment-method-option" onclick="selectPaymentMethod('upi')">
+                                <div class="payment-icon">📱</div>
+                                <span>UPI</span>
+                            </div>
+                            <div class="payment-method-option" onclick="selectPaymentMethod('netbanking')">
+                                <div class="payment-icon">🏦</div>
+                                <span>Net Banking</span>
+                            </div>
+                            <div class="payment-method-option" onclick="selectPaymentMethod('razorpay')">
+                                <div class="payment-icon">⚡</div>
+                                <span>Razor Pay</span>
+                            </div>
+                            <div class="payment-method-option" onclick="selectPaymentMethod('gpay')">
+                                <div class="payment-icon">🔵</div>
+                                <span>Google Pay</span>
+                            </div>
+                            <div class="payment-method-option" onclick="selectPaymentMethod('paytm')">
+                                <div class="payment-icon">💙</div>
+                                <span>Paytm</span>
+                            </div>
+                        </div>
+                        <button class="pay-btn back-btn" onclick="backToAddress()">← Back to Address</button>
+                    </div>
+
+                    <!-- Step 3: Card Payment Details -->
+                    <div id="card-payment-step" class="payment-step" style="display: none;">
+                        <h3>💳 Card Payment</h3>
+                        <div class="payment-form">
+                            <div class="form-group">
+                                <label>Cardholder Name</label>
+                                <input type="text" id="card-name" placeholder="Enter your name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Card Number</label>
+                                <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19"
+                                    required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Expiry Date</label>
+                                    <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>CVV</label>
+                                    <input type="text" id="card-cvv" placeholder="123" maxlength="3" required>
+                                </div>
+                            </div>
+                            <button class="pay-btn" onclick="processCardPayment()">Pay Now</button>
+                            <button class="pay-btn back-btn" onclick="backToPaymentMethods()">← Back</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: UPI Payment Details -->
+                    <div id="upi-payment-step" class="payment-step" style="display: none;">
+                        <h3>📱 UPI Payment</h3>
+                        <div class="payment-form">
+                            <div class="form-group">
+                                <label>UPI ID</label>
+                                <input type="text" id="upi-id" placeholder="yourname@upi" required>
+                                <small style="color: #666; font-size: 12px;">Format: yourname@upi</small>
+                            </div>
+                            <button class="pay-btn" onclick="processUPIPayment()">Pay with UPI</button>
+                            <button class="pay-btn back-btn" onclick="backToPaymentMethods()">← Back</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Net Banking Details -->
+                    <div id="netbanking-payment-step" class="payment-step" style="display: none;">
+                        <h3>🏦 Net Banking</h3>
+                        <div class="payment-form">
+                            <div class="form-group">
+                                <label>Select Bank</label>
+                                <select id="bank-select" required>
+                                    <option value="">Choose your bank</option>
+                                    <option value="sbi">State Bank of India</option>
+                                    <option value="hdfc">HDFC Bank</option>
+                                    <option value="icici">ICICI Bank</option>
+                                    <option value="axis">Axis Bank</option>
+                                    <option value="kotak">Kotak Mahindra Bank</option>
+                                    <option value="pnb">Punjab National Bank</option>
+                                </select>
+                            </div>
+                            <button class="pay-btn" onclick="processNetBankingPayment()">Pay with Net Banking</button>
+                            <button class="pay-btn back-btn" onclick="backToPaymentMethods()">← Back</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Razor Pay -->
+                    <div id="razorpay-payment-step" class="payment-step" style="display: none;">
+                        <h3>⚡ Razor Pay</h3>
+                        <p style="text-align: center; color: #666; margin-bottom: 20px;">
+                            You will be redirected to Razor Pay secure payment gateway.
+                        </p>
+                        <button class="pay-btn" onclick="processRazorPayPayment()">Pay with Razor Pay</button>
+                        <button class="pay-btn back-btn" onclick="backToPaymentMethods()">← Back</button>
+                    </div>
+
+                    <!-- Step 3: Google Pay -->
+                    <div id="gpay-payment-step" class="payment-step" style="display: none;">
+                        <h3>🔵 Google Pay</h3>
+                        <p style="text-align: center; color: #666; margin-bottom: 20px;">
+                            Complete payment using your Google Pay account.
+                        </p>
+                        <button class="pay-btn" onclick="processGPayPayment()">Pay with Google Pay</button>
+                        <button class="pay-btn back-btn" onclick="backToPaymentMethods()">← Back</button>
+                    </div>
+
+                    <!-- Step 3: Paytm -->
+                    <div id="paytm-payment-step" class="payment-step" style="display: none;">
+                        <h3>💙 Paytm</h3>
+                        <p style="text-align: center; color: #666; margin-bottom: 20px;">
+                            Complete payment using your Paytm wallet.
+                        </p>
+                        <button class="pay-btn" onclick="processPaytmPayment()">Pay with Paytm</button>
+                        <button class="pay-btn back-btn" onclick="backToPaymentMethods()">← Back</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" id="modal-footer">
+                <button class="back-btn-menu" onclick="closeCart()">← Back to Menu</button>
+                <div class="cart-total">Total: ₹<span id="cart-total">0.00</span></div>
+                <button class="checkout-btn" onclick="checkout()" id="checkout-btn">Proceed to Checkout →</button>
+                <button class="pay-btn" onclick="processPayment()" id="pay-btn" style="display: none;">Pay Now</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="shared-cart.js"></script>
+    <script>
+        let cart = SharedCart.loadSharedCart();
+
+        // Generate minimal particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 15;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Initialize particles on page load
+        document.addEventListener('DOMContentLoaded', createParticles);
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        function saveCart() {
+            SharedCart.saveSharedCart(cart);
+            cart = SharedCart.loadSharedCart();
+        }
+
+        function loadCart() {
+            cart = SharedCart.loadSharedCart();
+            updateCartCount();
+            updateCartDisplay();
+        }
+
+        loadCart();
+
+        function addToCart(name, price, image) {
+            cart = SharedCart.loadSharedCart();
+            const existingItem = cart.find(item => item.name === name);
+            if (existingItem) {
+                existingItem.quantity = SharedCart.getItemQty(existingItem) + 1;
+                existingItem.qty = existingItem.quantity;
+            } else {
+                cart.push(SharedCart.normalizeItem({ name, price, image, img: image, id: name, category: 'burgers', quantity: 1 }));
+            }
+            saveCart();
+            updateCartCount();
+            updateCartDisplay();
+            showNotification(`${name} added to cart!`);
+        }
+        function updateCartCount() {
+            cart = SharedCart.loadSharedCart();
+            const count = cart.reduce((total, item) => total + SharedCart.getItemQty(item), 0);
+            const oldCartCount = document.getElementById('cart-count');
+            const navbarCartCount = document.getElementById('cart-count-navbar');
+
+            if (oldCartCount) oldCartCount.textContent = count;
+            if (navbarCartCount) navbarCartCount.textContent = count;
+        }
+        function updateCartDisplay() {
+            cart = SharedCart.loadSharedCart();
+            const cartItems = document.getElementById('cart-items');
+            const cartEmpty = document.getElementById('cart-empty');
+            if (cart.length === 0) {
+                cartItems.innerHTML = '';
+                cartEmpty.style.display = 'block';
+                document.getElementById('cart-total').textContent = '0.00';
+                document.getElementById('checkout-btn').style.display = 'none';
+                return;
+            }
+            cartEmpty.style.display = 'none';
+            document.getElementById('checkout-btn').style.display = 'block';
+            let html = '', total = 0;
+            const fallbackImg = 'https://placehold.co/100?text=Product';
+            SharedCart.groupCartByCategory(cart).forEach(group => {
+                html += SharedCart.categorySectionOpenHtml(group.label);
+                group.items.forEach(({ item, index }) => {
+                    const qty = SharedCart.getItemQty(item);
+                    const sub = item.price * qty;
+                    total += sub;
+                    html += `<div class="cart-item-premium">
+                        <img src="${item.image || item.img}" alt="${item.name}" class="cart-item-image" onerror="this.src='${fallbackImg}'">
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">₹${item.price.toFixed(2)} each</div>
+                            <div class="cart-item-subtotal">Subtotal: ₹${sub.toFixed(2)}</div>
+                        </div>
+                        <div class="cart-item-controls">
+                            <button class="qty-btn minus" onclick="updateQuantity(${index},-1)">−</button>
+                            <span class="qty-display">${qty}</span>
+                            <button class="qty-btn plus" onclick="updateQuantity(${index},1)">+</button>
+                            <button class="remove-btn" onclick="removeFromCart(${index})">🗑️</button>
+                        </div>
+                    </div>`;
+                });
+                html += SharedCart.categorySectionCloseHtml();
+            });
+            cartItems.innerHTML = html;
+            document.getElementById('cart-total').textContent = total.toFixed(2);
+        }
+        function updateQuantity(index, change) {
+            cart = SharedCart.loadSharedCart();
+            cart[index].quantity = SharedCart.getItemQty(cart[index]) + change;
+            cart[index].qty = cart[index].quantity;
+            if (cart[index].quantity <= 0) cart.splice(index, 1);
+            saveCart();
+            updateCartCount();
+            updateCartDisplay();
+        }
+        function removeFromCart(index) {
+            cart = SharedCart.loadSharedCart();
+            cart.splice(index, 1);
+            saveCart();
+            updateCartCount();
+            updateCartDisplay();
+        }
+        function openCart() {
+            loadCart();
+            document.getElementById('cart-modal').style.display = 'block';
+            updateCartDisplay();
+        }
+        function closeCart() {
+            document.getElementById('cart-modal').style.display = 'none';
+        }
+        function checkout() {
+            if (cart.length === 0) {
+                showNotification('Your cart is empty!');
+                return;
+            }
+
+            document.getElementById('payment-section').style.display = 'block';
+            document.getElementById('checkout-btn').style.display = 'none';
+            document.getElementById('pay-btn').style.display = 'none';
+
+            showAddressStep();
+
+            document.getElementById('payment-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showAddressStep() {
+            document.getElementById('address-step').style.display = 'block';
+            document.getElementById('payment-methods-step').style.display = 'none';
+            document.getElementById('card-payment-step').style.display = 'none';
+            document.getElementById('upi-payment-step').style.display = 'none';
+            document.getElementById('netbanking-payment-step').style.display = 'none';
+            document.getElementById('razorpay-payment-step').style.display = 'none';
+            document.getElementById('gpay-payment-step').style.display = 'none';
+            document.getElementById('paytm-payment-step').style.display = 'none';
+        }
+
+        function showPaymentMethods() {
+            const name = document.getElementById('delivery-name').value.trim();
+            const phone = document.getElementById('phone-number').value.trim();
+            const address = document.getElementById('delivery-address').value.trim();
+            const city = document.getElementById('delivery-city').value.trim();
+            const zipcode = document.getElementById('delivery-zipcode').value.trim();
+
+            if (!name || !phone || !address || !city || !zipcode) {
+                showNotification('Please fill in all delivery details!');
+                return;
+            }
+
+            // Phone validation: must be 10 digits
+            const phoneRegex = /^[0-9]{10}$/;
+            if (!phoneRegex.test(phone)) {
+                showNotification('Invalid phone! Please enter a 10-digit mobile number.');
+                return;
+            }
+
+            // Zipcode validation: must be 6 digits for India
+            const zipcodeRegex = /^[0-9]{6}$/;
+            if (!zipcodeRegex.test(zipcode)) {
+                showNotification('Invalid zip code! Must be 6 digits for India');
+                return;
+            }
+
+            document.getElementById('address-step').style.display = 'none';
+            document.getElementById('payment-methods-step').style.display = 'block';
+        }
+
+        function backToAddress() {
+            document.getElementById('payment-methods-step').style.display = 'none';
+            document.getElementById('address-step').style.display = 'block';
+        }
+
+        function selectPaymentMethod(method) {
+            document.getElementById('payment-methods-step').style.display = 'none';
+
+            switch (method) {
+                case 'card':
+                    document.getElementById('card-payment-step').style.display = 'block';
+                    break;
+                case 'upi':
+                    document.getElementById('upi-payment-step').style.display = 'block';
+                    const total = cart.reduce((sum, item) => sum + (item.price * SharedCart.getItemQty(item)), 0);
+                    document.getElementById('upi-amount').value = '₹' + total.toFixed(2);
+                    break;
+                case 'netbanking':
+                    document.getElementById('netbanking-payment-step').style.display = 'block';
+                    break;
+                case 'razorpay':
+                    document.getElementById('razorpay-payment-step').style.display = 'block';
+                    break;
+                case 'gpay':
+                    document.getElementById('gpay-payment-step').style.display = 'block';
+                    break;
+                case 'paytm':
+                    document.getElementById('paytm-payment-step').style.display = 'block';
+                    break;
+            }
+        }
+
+        function backToPaymentMethods() {
+            document.getElementById('card-payment-step').style.display = 'none';
+            document.getElementById('upi-payment-step').style.display = 'none';
+            document.getElementById('netbanking-payment-step').style.display = 'none';
+            document.getElementById('razorpay-payment-step').style.display = 'none';
+            document.getElementById('gpay-payment-step').style.display = 'none';
+            document.getElementById('paytm-payment-step').style.display = 'none';
+            document.getElementById('payment-methods-step').style.display = 'block';
+        }
+
+        function processCardPayment() {
+            const cardName = document.getElementById('card-name').value.trim();
+            const cardNumber = document.getElementById('card-number').value.trim();
+            const cardExpiry = document.getElementById('card-expiry').value.trim();
+            const cardCvv = document.getElementById('card-cvv').value.trim();
+
+            if (!cardName || !cardNumber || !cardExpiry || !cardCvv) {
+                showNotification('Please fill in all card details!');
+                return;
+            }
+
+            const cardNumberClean = cardNumber.replace(/\s/g, '');
+            if (cardNumberClean.length < 13 || cardNumberClean.length > 19 || !/^\d+$/.test(cardNumberClean)) {
+                showNotification('Invalid card number!');
+                return;
+            }
+
+            if (!/^\d{3}$/.test(cardCvv)) {
+                showNotification('Invalid CVV!');
+                return;
+            }
+
+            const expiryRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
+            if (!expiryRegex.test(cardExpiry)) {
+                showNotification('Invalid expiry date (MM/YY)!');
+                return;
+            }
+
+            completePayment('Card');
+        }
+
+        function processUPIPayment() {
+            const upiId = document.getElementById('upi-id').value.trim();
+
+            // UPI ID validation: must be in format name@upi or similar
+            const upiRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+$/;
+            if (!upiId || !upiRegex.test(upiId)) {
+                showNotification('Invalid UPI ID! Format: yourname@upi');
+                return;
+            }
+
+            completePayment('UPI');
+        }
+
+        function processNetBankingPayment() {
+            const bank = document.getElementById('bank-select').value;
+
+            if (!bank) {
+                showNotification('Please select your bank!');
+                return;
+            }
+
+            completePayment('Net Banking');
+        }
+
+        function processRazorPayPayment() {
+            completePayment('Razor Pay');
+        }
+
+        function processGPayPayment() {
+            completePayment('Google Pay');
+        }
+
+        function processPaytmPayment() {
+            completePayment('Paytm');
+        }
+
+        function completePayment(method) {
+            showNotification(`Payment Successful via ${method}! 🎉`);
+
+            cart = [];
+            saveCart();
+            updateCartCount();
+            updateCartDisplay();
+
+            document.getElementById('delivery-name').value = '';
+            document.getElementById('phone-number').value = '';
+            document.getElementById('delivery-address').value = '';
+            document.getElementById('card-name').value = '';
+            document.getElementById('card-number').value = '';
+            document.getElementById('card-expiry').value = '';
+            document.getElementById('card-cvv').value = '';
+            document.getElementById('upi-id').value = '';
+            document.getElementById('upi-amount').value = '';
+            document.getElementById('bank-select').value = '';
+
+            document.getElementById('payment-section').style.display = 'none';
+            document.getElementById('checkout-btn').style.display = 'block';
+
+            setTimeout(() => {
+                closeCart();
+            }, 2000);
+        }
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 2000);
+        }
+
+        SharedCart.bindCartRefresh(() => { loadCart(); updateCartCount(); updateCartDisplay(); });
+
+        window.onclick = function (event) {
+            const modal = document.getElementById('cart-modal');
+            if (event.target === modal) closeCart();
+        }
+    </script>
+
+    <!-- Premium Delivery Details Section -->
+    <div class="delivery-section">
+        <div class="delivery-container">
+            <h2 class="delivery-title">🚚 Fast Delivery</h2>
+            <div class="delivery-grid">
+                <div class="delivery-card">
+                    <div class="delivery-icon">⚡</div>
+                    <h3>30-45 Minutes</h3>
+                    <p>Quick delivery to your doorstep</p>
+                </div>
+                <div class="delivery-card">
+                    <div class="delivery-icon">🆓</div>
+                    <h3>Free Delivery</h3>
+                    <p>On orders above $25</p>
+                </div>
+                <div class="delivery-card">
+                    <div class="delivery-icon">📍</div>
+                    <h3>Live Tracking</h3>
+                    <p>Track your order in real-time</p>
+                </div>
+                <div class="delivery-card">
+                    <div class="delivery-icon">🌡️</div>
+                    <h3>Hot & Fresh</h3>
+                    <p>Insulated bags keep food warm</p>
+                </div>
+            </div>
+            <div class="delivery-note">
+                <p>📞 Need help? Call us: <strong>09014283462</strong></p>
+                <p>🕐 Open: 10:00 AM - 10:00 PM (7 days)</p>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .delivery-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 60px 20px;
+            margin-top: 50px;
+        }
+
+        .delivery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .delivery-title {
+            text-align: center;
+            color: white;
+            font-size: 36px;
+            margin-bottom: 40px;
+        }
+
+        .delivery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .delivery-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .delivery-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .delivery-card h3 {
+            color: #333;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .delivery-card p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .delivery-note {
+            text-align: center;
+            color: white;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 25px;
+            border-radius: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .delivery-title {
+                font-size: 28px;
+            }
+
+            .delivery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <!-- Footer -->
+    <footer style="background: #1a1a2e; padding: 50px 10% 30px; text-align: center; border-top: 3px solid rgba(255,107,53,0.3);">
+        <div style="font-size: 1.8rem; font-weight: 800; color: #ff6b35; margin-bottom: 10px; letter-spacing: -1px;">🍔 Burger Royale</div>
+        <p style="color: rgba(255,255,255,0.5); margin-bottom: 30px; font-size: 0.95rem;">Handcrafted smash burgers made with love</p>
+        <div style="display: flex; justify-content: center; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 30px;">
+            <a href="https://www.instagram.com/cafeicemagic?igsh=MXNobmFxMm9jengwbQ==" target="_blank"
+               style="background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366); color:white; padding: 12px 22px; border-radius: 12px; font-size: 14px; font-weight: 700; text-decoration: none; display:inline-flex; align-items:center; gap:8px; transition: 0.3s; box-shadow: 0 6px 20px rgba(220,39,67,0.3);"
+               title="Follow us on Instagram">
+                📸 Instagram
+            </a>
+            <a href="https://www.facebook.com/share/1E1GXpEt6j/" target="_blank"
+               style="background: #1877F2; color:white; padding: 12px 22px; border-radius: 12px; font-size: 14px; font-weight: 700; text-decoration: none; display:inline-flex; align-items:center; gap:8px; transition: 0.3s; box-shadow: 0 6px 20px rgba(24,119,242,0.3);"
+               title="Like us on Facebook">
+                👍 Facebook
+            </a>
+        </div>
+        <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-bottom: 25px;">
+            <a href="index.html" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.9rem; transition: 0.3s;" onmouseover="this.style.color='#ff6b35'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">Home</a>
+            <a href="pizza.html" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.9rem;" onmouseover="this.style.color='#ff6b35'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">Pizza</a>
+            <a href="desserts.html" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.9rem;" onmouseover="this.style.color='#ff6b35'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">Desserts</a>
+            <a href="cooldrinks.html" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.9rem;" onmouseover="this.style.color='#ff6b35'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">Drinks</a>
+            <a href="login.html" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.9rem;" onmouseover="this.style.color='#ff6b35'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">Login</a>
+        </div>
+        <p style="color: rgba(255,255,255,0.25); font-size: 0.8rem;">© 2026 Cafe Ice Magic. All rights reserved.</p>
+    </footer>
+
+</body>
+
+</html>

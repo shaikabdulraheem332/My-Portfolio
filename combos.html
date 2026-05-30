@@ -1,0 +1,1839 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gourmet Combos - Culinary Excellence</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --luxury-black: #0a0a0a;
+            --luxury-dark: #0d0d0d;
+            --luxury-charcoal: #1a1a1a;
+            --luxury-grey: #2a2a2a;
+            --luxury-gold: #d4af37;
+            --luxury-gold-light: #f4d03f;
+            --luxury-champagne: #f7e7ce;
+            --luxury-rose: #b76e79;
+            --luxury-silver: #c0c0c0;
+            --luxury-platinum: #e5e4e2;
+            --luxury-white: #ffffff;
+            --luxury-cream: #faf8f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--luxury-black);
+            color: var(--luxury-white);
+            overflow-x: hidden;
+        }
+
+        .page-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .page-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cinematic-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at 20% 80%, rgba(212, 175, 55, 0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(183, 110, 121, 0.06) 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(45, 45, 45, 0.1) 0%, transparent 60%), linear-gradient(180deg, var(--luxury-black) 0%, var(--luxury-dark) 50%, var(--luxury-charcoal) 100%);
+            z-index: -3;
+        }
+
+        .light-rays {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 40%, rgba(212, 175, 55, 0.03) 45%, transparent 50%), linear-gradient(-45deg, transparent 40%, rgba(183, 110, 121, 0.02) 45%, transparent 50%);
+            background-size: 100% 100%;
+            animation: lightRays 20s ease-in-out infinite;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        @keyframes lightRays {
+
+            0%,
+            100% {
+                transform: translateX(0) translateY(0);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: translateX(20px) translateY(-20px);
+                opacity: 0.8;
+            }
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--luxury-gold);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: floatParticle 20s infinite ease-in-out;
+        }
+
+        @keyframes floatParticle {
+
+            0%,
+            100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0.3;
+            }
+
+            50% {
+                transform: translateY(-100px) translateX(50px);
+                opacity: 0.6;
+            }
+        }
+
+        .hero {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(10, 10, 10, 0.7) 0%, rgba(10, 10, 10, 0.3) 30%, rgba(10, 10, 10, 0.1) 50%, rgba(10, 10, 10, 0.3) 70%, rgba(10, 10, 10, 0.9) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 1200px;
+            padding: 0 40px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 12px 32px;
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--luxury-gold);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+            animation: fadeFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes fadeFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, var(--luxury-white), var(--luxury-champagne), var(--luxury-gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 80px rgba(212, 175, 55, 0.3);
+            animation: titleGlow 4s ease-in-out infinite alternate;
+            letter-spacing: -2px;
+        }
+
+        @keyframes titleGlow {
+            0% {
+                filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.2));
+            }
+
+            100% {
+                filter: drop-shadow(0 0 60px rgba(212, 175, 55, 0.4));
+            }
+        }
+
+        .hero-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 50px;
+            line-height: 1.6;
+            letter-spacing: 2px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .luxury-btn {
+            display: inline-block;
+            padding: 18px 48px;
+            background: linear-gradient(135deg, var(--luxury-gold), var(--luxury-gold-light));
+            color: var(--luxury-black);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.3), 0 0 0 1px rgba(212, 175, 55, 0.1);
+            backdrop-filter: blur(10px);
+            border: none;
+            cursor: pointer;
+        }
+
+        .luxury-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .luxury-btn:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.5), 0 0 0 1px rgba(212, 175, 55, 0.2);
+        }
+
+        .luxury-btn:hover::before {
+            left: 100%;
+        }
+
+        .luxury-btn-outline {
+            background: transparent;
+            border: 2px solid var(--luxury-gold);
+            color: var(--luxury-gold);
+            margin-left: 20px;
+        }
+
+        .luxury-btn-outline:hover {
+            background: var(--luxury-gold);
+            color: var(--luxury-black);
+        }
+
+        .floating-food {
+            position: absolute;
+            z-index: 1;
+            filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.5));
+            animation: floatFood 8s ease-in-out infinite;
+        }
+
+        .floating-food-1 {
+            top: 15%;
+            left: 10%;
+            width: 200px;
+            animation-delay: 0s;
+        }
+
+        .floating-food-2 {
+            top: 60%;
+            right: 10%;
+            width: 250px;
+            animation-delay: -2s;
+        }
+
+        .floating-food-3 {
+            bottom: 20%;
+            left: 15%;
+            width: 180px;
+            animation-delay: -4s;
+        }
+
+        @keyframes floatFood {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+
+            25% {
+                transform: translateY(-20px) rotate(5deg) scale(1.05);
+            }
+
+            50% {
+                transform: translateY(-10px) rotate(-3deg) scale(1.02);
+            }
+
+            75% {
+                transform: translateY(-25px) rotate(3deg) scale(1.03);
+            }
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 25px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.5s ease;
+            background: transparent;
+        }
+
+        .nav.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 15px 50px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--luxury-gold);
+            text-decoration: none;
+            letter-spacing: 2px;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .back-btn {
+            padding: 12px 28px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--luxury-white);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            background: rgba(212, 175, 55, 0.2);
+            border-color: var(--luxury-gold);
+            transform: translateY(-3px);
+        }
+
+        .cart-btn {
+            padding: 12px 28px;
+            background: linear-gradient(135deg, var(--luxury-gold), var(--luxury-gold-light));
+            color: var(--luxury-black);
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .cart-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4);
+        }
+
+        .cart-count-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: linear-gradient(135deg, var(--luxury-rose), #e74c3c);
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 800;
+            border: 2px solid var(--luxury-black);
+        }
+
+        .section {
+            padding: 120px 50px;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--luxury-white), var(--luxury-champagne));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 80px;
+            letter-spacing: 2px;
+        }
+
+        .combo-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .combo-card {
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 30px;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .combo-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--luxury-gold), var(--luxury-rose), var(--luxury-gold));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .combo-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .combo-card:hover::before {
+            opacity: 1;
+        }
+
+        .combo-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .combo-card:hover .combo-image {
+            transform: scale(1.1);
+        }
+
+        .combo-content {
+            padding: 35px;
+        }
+
+        .combo-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--luxury-gold);
+        }
+
+        .combo-description {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .combo-items {
+            background: rgba(45, 45, 45, 0.5);
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .price-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .original-price {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: line-through;
+        }
+
+        .combo-price {
+            font-size: 2rem;
+            color: var(--luxury-rose);
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .save-badge {
+            background: linear-gradient(135deg, var(--luxury-rose), #e74c3c);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--luxury-gold), var(--luxury-gold-light));
+            color: var(--luxury-black);
+            border: none;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+        }
+
+        .add-to-cart:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(212, 175, 55, 0.5);
+        }
+
+        .chef-special {
+            background: linear-gradient(135deg, var(--luxury-dark), var(--luxury-charcoal));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chef-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            align-items: center;
+        }
+
+        .chef-image-container {
+            position: relative;
+        }
+
+        .chef-image {
+            width: 100%;
+            border-radius: 30px;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+            animation: chefFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes chefFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .chef-badge {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            background: linear-gradient(135deg, var(--luxury-gold), var(--luxury-rose));
+            padding: 20px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            color: var(--luxury-black);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.4);
+        }
+
+        .chef-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, var(--luxury-gold), var(--luxury-rose));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .chef-content p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .reservation-section {
+            background: linear-gradient(135deg, var(--luxury-charcoal), var(--luxury-dark));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reservation-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .reservation-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--luxury-gold);
+        }
+
+        .reservation-content p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .reservation-form {
+            background: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(20px);
+            padding: 50px;
+            border-radius: 30px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--luxury-gold);
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 18px 25px;
+            background: rgba(45, 45, 45, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            color: var(--luxury-white);
+            font-size: 16px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--luxury-gold);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+            background: rgba(45, 45, 45, 0.95);
+        }
+
+        .testimonials-section {
+            background: var(--luxury-black);
+            position: relative;
+        }
+
+        .testimonials-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .testimonial-card {
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 30px;
+            padding: 50px;
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .testimonial-quote {
+            font-size: 4rem;
+            color: var(--luxury-gold);
+            opacity: 0.3;
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .testimonial-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--luxury-gold);
+        }
+
+        .testimonial-name {
+            font-weight: 700;
+            color: var(--luxury-gold);
+        }
+
+        .testimonial-role {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .delivery-section {
+            background: linear-gradient(135deg, var(--luxury-charcoal), var(--luxury-dark));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .delivery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .delivery-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .delivery-feature {
+            padding: 40px;
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 30px;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .delivery-feature:hover {
+            transform: translateY(-10px);
+            border-color: rgba(212, 175, 55, 0.3);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .delivery-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .delivery-feature h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--luxury-gold);
+        }
+
+        .delivery-feature p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+
+        .footer {
+            background: linear-gradient(135deg, var(--luxury-dark), var(--luxury-charcoal));
+            padding: 80px 50px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--luxury-gold), var(--luxury-rose), var(--luxury-gold));
+            background-size: 400% 400%;
+            animation: borderGlow 3s linear infinite;
+        }
+
+        @keyframes borderGlow {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 60px;
+        }
+
+        .footer-section h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: var(--luxury-gold);
+            letter-spacing: 1px;
+        }
+
+        .footer-section p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: var(--luxury-gold);
+            padding-left: 10px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 60px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(20px);
+            margin: 2% auto;
+            padding: 0;
+            border-radius: 30px;
+            width: 95%;
+            max-width: 800px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            animation: modalSlide 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @keyframes modalSlide {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            padding: 30px;
+            background: linear-gradient(135deg, var(--luxury-gold), var(--luxury-rose));
+            color: var(--luxury-black);
+            border-radius: 30px 30px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-btn {
+            font-size: 36px;
+            cursor: pointer;
+            color: var(--luxury-black);
+            transition: transform 0.3s ease;
+        }
+
+        .close-btn:hover {
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 30px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            background: rgba(45, 45, 45, 0.5);
+            border-radius: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 700;
+            color: var(--luxury-gold);
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            color: var(--luxury-rose);
+            font-weight: 600;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .qty-btn {
+            width: 35px;
+            height: 35px;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .qty-btn.minus {
+            background: linear-gradient(135deg, #ff7675, #e74c3c);
+            color: white;
+        }
+
+        .qty-btn.plus {
+            background: linear-gradient(135deg, var(--luxury-gold), var(--luxury-gold-light));
+            color: var(--luxury-black);
+        }
+
+        .qty-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .qty-display {
+            min-width: 30px;
+            text-align: center;
+            font-weight: 700;
+            color: var(--luxury-white);
+        }
+
+        .remove-btn {
+            background: rgba(231, 76, 60, 0.2);
+            border: 1px solid #e74c3c;
+            color: #e74c3c;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .remove-btn:hover {
+            background: #e74c3c;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .modal-footer {
+            padding: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-total {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--luxury-gold);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--luxury-gold), var(--luxury-gold-light));
+            color: var(--luxury-black);
+            padding: 20px 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.4);
+            z-index: 3000;
+            animation: slideIn 0.3s ease;
+            font-weight: 600;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 40px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .payment-section {
+            margin-top: 20px;
+        }
+
+        .payment-step {
+            display: none;
+        }
+
+        .payment-step.active {
+            display: block;
+        }
+
+        .payment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .form-group {
+            flex: 1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--luxury-gold);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(45, 45, 45, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: var(--luxury-white);
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--luxury-gold);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+            outline: none;
+        }
+
+        .payment-methods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .payment-method-option {
+            background: rgba(45, 45, 45, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-method-option:hover {
+            border-color: var(--luxury-gold);
+            transform: translateY(-3px);
+        }
+
+        .payment-method-option.selected {
+            border-color: var(--luxury-gold);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .payment-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .pay-btn {
+            background: linear-gradient(135deg, var(--luxury-gold), var(--luxury-gold-light));
+            color: var(--luxury-black);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .pay-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--luxury-white);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                padding: 15px 25px;
+            }
+
+            .nav-buttons {
+                gap: 10px;
+            }
+
+            .back-btn,
+            .cart-btn {
+                padding: 10px 20px;
+                font-size: 12px;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .reservation-container,
+            .chef-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .section {
+                padding: 80px 25px;
+            }
+
+            .luxury-btn-outline {
+                margin-left: 0;
+                margin-top: 15px;
+            }
+
+            .combo-showcase {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cinematic-background"></div>
+    <div class="light-rays"></div>
+    <div class="particles">
+        <div class="particle" style="top: 10%; left: 20%;"></div>
+        <div class="particle" style="top: 30%; left: 80%;"></div>
+        <div class="particle" style="top: 60%; left: 40%;"></div>
+        <div class="particle" style="top: 80%; left: 70%;"></div>
+        <div class="particle" style="top: 50%; left: 10%;"></div>
+    </div>
+    <nav class="nav">
+        <a href="index.html" class="nav-logo">Gourmet Combos</a>
+        <div class="nav-buttons">
+            <a href="index.html" class="back-btn">← Back to Home</a>
+            <button class="cart-btn" onclick="openCart()">🛒 Cart<span class="cart-count-badge"
+                    id="cart-count">0</span></button>
+        </div>
+    </nav>
+    <section class="hero">
+        <div class="hero-video-overlay"></div>
+        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400" alt="Pizza"
+            class="floating-food floating-food-1">
+        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400" alt="Burger"
+            class="floating-food floating-food-2">
+        <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400" alt="Dessert"
+            class="floating-food floating-food-3">
+        <div class="hero-content page-reveal">
+            <div class="hero-badge">✨ Premium Combos</div>
+            <h1 class="hero-title">Curated<br>Excellence</h1>
+            <p class="hero-subtitle">Experience the art of perfectly paired flavors with our meticulously crafted
+                gourmet combinations.</p>
+            <a href="#combos" class="luxury-btn">View Combos</a>
+            <a href="#reservation" class="luxury-btn luxury-btn-outline">Reserve Now</a>
+        </div>
+    </section>
+    <section class="section page-reveal" id="combos">
+        <h2 class="section-title">Signature Combos</h2>
+        <p class="section-subtitle">Curated perfection for the discerning palate</p>
+        <div class="combo-showcase">
+            <div class="combo-card">
+                <img src="https://portfolio.investmentguruindia.com/uploads/news/FoodandBeverageTourism_26012026.jpg"
+                    alt="Burger Meal" class="combo-image">
+                <div class="combo-content">
+                    <h3 class="combo-title">🍔 Burger Meal</h3>
+                    <p class="combo-description">Complete meal with premium burger, golden fries, and refreshing
+                        beverage</p>
+                    <div class="combo-items">✓ Classic Cheeseburger<br>✓ Large Fries<br>✓ Soft Drink (500ml)</div>
+                    <div class="price-container">
+                        <span class="original-price">₹1409</span>
+                        <span class="combo-price">₹1078</span>
+                        <span class="save-badge">SAVE 24%</span>
+                    </div>
+                    <button class="add-to-cart"
+                        onclick="addToCart('Burger Meal Combo', 1078, 'https://portfolio.investmentguruindia.com/uploads/news/FoodandBeverageTourism_26012026.jpg')">Add
+                        to Cart</button>
+                </div>
+            </div>
+            <div class="combo-card">
+                <img src="https://assets.winni.in/product/primary/2022/11/77686.jpeg?dpr=1&w=1000" alt="Pizza Feast"
+                    class="combo-image">
+                <div class="combo-content">
+                    <h3 class="combo-title">🍕 Pizza Feast</h3>
+                    <p class="combo-description">Perfect for sharing with family or friends - a complete dining
+                        experience</p>
+                    <div class="combo-items">✓ Large Pizza (Any Flavor)<br>✓ Garlic Bread<br>✓ 2 Soft Drinks<br>✓
+                        Chocolate Lava Cake</div>
+                    <div class="price-container">
+                        <span class="original-price">₹2404</span>
+                        <span class="combo-price">₹1908</span>
+                        <span class="save-badge">SAVE 21%</span>
+                    </div>
+                    <button class="add-to-cart"
+                        onclick="addToCart('Pizza Feast Combo', 1908, 'https://assets.winni.in/product/primary/2022/11/77686.jpeg?dpr=1&w=1000')">Add
+                        to Cart</button>
+                </div>
+            </div>
+            <div class="combo-card">
+                <img src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/FOOD_CATALOG/IMAGES/CMS/2025/2/11/4efb3a11-3cc3-4f14-9774-08bdd4f24923_8309ffdf-15cb-467e-9470-24eacb0154c1.png"
+                    alt="Family Pack" class="combo-image">
+                <div class="combo-content">
+                    <h3 class="combo-title">👨‍👩‍👧‍👦 Family Pack</h3>
+                    <p class="combo-description">The ultimate family meal deal</p>
+                    <div class="combo-items">✓ 2 Burgers (Any Type)<br>✓ 2 Fries (Large)<br>✓ 4 Chicken Wings<br>✓ 4
+                        Soft Drinks<br>✓ 2 Ice Creams</div>
+                    <div class="price-container">
+                        <span class="original-price">₹3564</span>
+                        <span class="combo-price">₹2738</span>
+                        <span class="save-badge">SAVE 23%</span>
+                    </div>
+                    <button class="add-to-cart"
+                        onclick="addToCart('Family Pack Combo', 2738, 'https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/FOOD_CATALOG/IMAGES/CMS/2025/2/11/4efb3a11-3cc3-4f14-9774-08bdd4f24923_8309ffdf-15cb-467e-9470-24eacb0154c1.png')">Add
+                        to Cart</button>
+                </div>
+            </div>
+            <div class="combo-card">
+                <img src="https://img.freepik.com/premium-psd/pizza-combo-meal-with-fries-orange-juice_787500-57275.jpg"
+                    alt="Student Special" class="combo-image">
+                <div class="combo-content">
+                    <h3 class="combo-title">🎓 Student Special</h3>
+                    <p class="combo-description">Budget-friendly combo for students</p>
+                    <div class="combo-items">✓ Personal Pizza<br>✓ French Fries<br>✓ Fresh Juice</div>
+                    <div class="price-container">
+                        <span class="original-price">₹1243</span>
+                        <span class="combo-price">₹829</span>
+                        <span class="save-badge">SAVE 33%</span>
+                    </div>
+                    <button class="add-to-cart"
+                        onclick="addToCart('Student Special Combo', 829, 'https://img.freepik.com/premium-psd/pizza-combo-meal-with-fries-orange-juice_787500-57275.jpg')">Add
+                        to Cart</button>
+                </div>
+            </div>
+            <div class="combo-card">
+                <img src="https://xoxobella.com/wp-content/uploads/2024/06/bbq_chicken_nachos_featured.jpg"
+                    alt="Snack Attack" class="combo-image">
+                <div class="combo-content">
+                    <h3 class="combo-title">🍟 Snack Attack</h3>
+                    <p class="combo-description">Perfect for movie nights or parties</p>
+                    <div class="combo-items">✓ 12 Chicken Wings<br>✓ Loaded Nachos<br>✓ Onion Rings<br>✓ 2 Dips<br>✓ 2
+                        Soft Drinks</div>
+                    <div class="price-container">
+                        <span class="original-price">₹2652</span>
+                        <span class="combo-price">₹2074</span>
+                        <span class="save-badge">SAVE 22%</span>
+                    </div>
+                    <button class="add-to-cart"
+                        onclick="addToCart('Snack Attack Combo', 2074, 'https://xoxobella.com/wp-content/uploads/2024/06/bbq_chicken_nachos_featured.jpg')">Add
+                        to Cart</button>
+                </div>
+            </div>
+            <div class="combo-card">
+                <img src="https://www.saltycanary.com/wp-content/uploads/2016/03/Donut-Milkshake-Salty-Canary-8-of-9-copy.jpg"
+                    alt="Sweet Treat" class="combo-image">
+                <div class="combo-content">
+                    <h3 class="combo-title">� Sweet Treat Combo</h3>
+                    <p class="combo-description">For those with a sweet tooth</p>
+                    <div class="combo-items">✓ 2 Ice Creams<br>✓ Chocolate Cake Slice<br>✓ Milkshake<br>✓ 2 Donuts</div>
+                    <div class="price-container">
+                        <span class="original-price">₹1906</span>
+                        <span class="combo-price">₹1493</span>
+                        <span class="save-badge">SAVE 22%</span>
+                    </div>
+                    <button class="add-to-cart"
+                        onclick="addToCart('Sweet Treat Combo', 1493, 'https://www.saltycanary.com/wp-content/uploads/2016/03/Donut-Milkshake-Salty-Canary-8-of-9-copy.jpg')">Add
+                        to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section chef-special page-reveal">
+        <div class="chef-container">
+            <div class="chef-image-container">
+                <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=600" alt="Chef Special"
+                    class="chef-image">
+                <div class="chef-badge">👨‍🍳 Chef's Special</div>
+            </div>
+            <div class="chef-content">
+                <h3>Culinary<br>Mastery</h3>
+                <p>Our Executive Chef brings decades of culinary expertise from Michelin-starred restaurants around the
+                    world. Each combo is a masterpiece, carefully crafted with the finest ingredients sourced from
+                    premium suppliers.</p>
+                <p>The Chef's Special combos change seasonally, featuring innovative techniques and traditional methods
+                    passed down through generations. Experience the extraordinary.</p>
+            </div>
+        </div>
+    </section>
+    <section class="section reservation-section page-reveal" id="reservation">
+        <div class="reservation-container">
+            <div class="reservation-content">
+                <h3>Reserve Your<br>Experience</h3>
+                <p>Embark on a culinary journey like no other. Our reservation system ensures your table is perfectly
+                    prepared for your arrival, complete with personalized attention and exceptional service.</p>
+                <p>For special occasions, corporate events, or intimate gatherings, our dedicated team will curate an
+                    unforgettable dining experience tailored to your preferences.</p>
+            </div>
+            <div class="reservation-form">
+                <form>
+                    <div class="form-group"><label>Full Name</label><input type="text" placeholder="Enter your name">
+                    </div>
+                    <div class="form-group"><label>Email Address</label><input type="email"
+                            placeholder="Enter your email"></div>
+                    <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="Enter your phone">
+                    </div>
+                    <div class="form-group"><label>Date & Time</label><input type="datetime-local"></div>
+                    <div class="form-group"><label>Number of Guests</label><select>
+                            <option>2 Guests</option>
+                            <option>4 Guests</option>
+                            <option>6 Guests</option>
+                            <option>8+ Guests</option>
+                        </select></div>
+                    <button type="submit" class="luxury-btn" style="width: 100%;">Reserve Now</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <section class="section testimonials-section page-reveal">
+        <h2 class="section-title">Guest Experiences</h2>
+        <p class="section-subtitle">What our discerning guests say</p>
+        <div class="testimonials-container">
+            <div class="testimonial-card">
+                <div class="testimonial-quote">"</div>
+                <p class="testimonial-text">The combo meals are absolutely divine. The pairing of flavors is perfect,
+                    and the value is incredible for such premium quality.</p>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100" alt="Guest"
+                        class="testimonial-avatar">
+                    <div>
+                        <div class="testimonial-name">Victoria Sterling</div>
+                        <div class="testimonial-role">Food Enthusiast</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-quote">"</div>
+                <p class="testimonial-text">The family pack fed all of us perfectly. The portions were generous, and
+                    every item was fresh and delicious. Highly recommend!</p>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100" alt="Guest"
+                        class="testimonial-avatar">
+                    <div>
+                        <div class="testimonial-name">Alexander Chen</div>
+                        <div class="testimonial-role">Family Dad</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-quote">"</div>
+                <p class="testimonial-text">The pizza feast combo was perfect for our party. The variety and quality
+                    exceeded all expectations. Will definitely order again!</p>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100" alt="Guest"
+                        class="testimonial-avatar">
+                    <div>
+                        <div class="testimonial-name">Isabella Martinez</div>
+                        <div class="testimonial-role">Party Host</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section delivery-section page-reveal">
+        <div class="delivery-container">
+            <h2 class="section-title">Premium Delivery</h2>
+            <p class="section-subtitle">Gourmet excellence delivered to your doorstep</p>
+            <div class="delivery-features">
+                <div class="delivery-feature"><span class="delivery-icon">🚗</span>
+                    <h4>Express Delivery</h4>
+                    <p>Fast, reliable delivery within 45 minutes, maintaining perfect temperature and presentation.</p>
+                </div>
+                <div class="delivery-feature"><span class="delivery-icon">👨‍🍳</span>
+                    <h4>Freshly Prepared</h4>
+                    <p>Every combo is freshly prepared by our chefs just before departure for optimal freshness.</p>
+                </div>
+                <div class="delivery-feature"><span class="delivery-icon">📦</span>
+                    <h4>Premium Packaging</h4>
+                    <p>Elegant, eco-friendly packaging that preserves quality and enhances presentation.</p>
+                </div>
+                <div class="delivery-feature"><span class="delivery-icon">⭐</span>
+                    <h4>VIP Service</h4>
+                    <p>Dedicated delivery team with white-glove service for premium orders.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer page-reveal">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>Gourmet Combos</h4>
+                <p>Where culinary artistry meets exceptional value. Experience the extraordinary.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>📍 Ice Magic Cafe</p>
+                <p>📞 09014283462</p>
+                <p>✉️ hello@cafeicemagic.com</p>
+                <div style="margin-top: 1.2rem; display: flex; gap: 12px; flex-wrap: wrap;">
+                    <a href="https://www.instagram.com/cafeicemagic?igsh=MXNobmFxMm9jengwbQ==" target="_blank"
+                       style="background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366); color:white; padding: 9px 15px; border-radius: 10px; font-size: 13px; font-weight: 700; text-decoration: none; display:inline-flex; align-items:center; gap:6px;"
+                       title="Instagram">📸 Instagram</a>
+                    <a href="https://www.facebook.com/share/1E1GXpEt6j/" target="_blank"
+                       style="background: #1877F2; color:white; padding: 9px 15px; border-radius: 10px; font-size: 13px; font-weight: 700; text-decoration: none; display:inline-flex; align-items:center; gap:6px;"
+                       title="Facebook">👍 Facebook</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Hours</h4>
+                <p>Monday - Sunday: 10:00 AM - 10:00 PM</p>
+                <p>Open 7 days a week</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#combos">Combos</a></li>
+                    <li><a href="#reservation">Reservation</a></li>
+                    <li><a href="#delivery">Delivery</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Gourmet Combos. All rights reserved. Crafted with passion.</p>
+        </div>
+    </footer>
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🛒 Your Cart</h2>
+                <span class="close-btn" onclick="closeCart()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="cart-items"></div>
+                <div id="cart-empty" class="empty-cart" style="display: none;">
+                    <p>Your cart is empty</p>
+                    <p>🍨 Add some delicious combos!</p>
+                </div>
+
+                <!-- Cart Total and Checkout Button -->
+                <div id="cart-checkout"
+                    style="display: none; padding: 20px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 20px;">
+                    <div class="cart-total"
+                        style="font-size: 24px; font-weight: 700; color: var(--luxury-gold); margin-bottom: 20px;">
+                        Total: ₹<span id="cart-total">0</span></div>
+                    <button class="luxury-btn" onclick="checkout()" style="width: 100%;">Proceed to Checkout</button>
+                </div>
+
+                <!-- Payment Form -->
+                <div id="payment-section" class="payment-section" style="display: none;">
+                    <!-- Step 1: Delivery Address -->
+                    <div id="address-step" class="payment-step">
+                        <h3>📍 Delivery Details</h3>
+                        <div class="payment-form">
+                            <div class="form-group">
+                                <label>Full Name *</label>
+                                <input type="text" id="delivery-name" placeholder="Enter your full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number *</label>
+                                <input type="tel" id="phone-number" placeholder="Enter 10-digit mobile number"
+                                    maxlength="10" required>
+                                <small style="color: #666; font-size: 12px;">Enter 10-digit mobile number</small>
+                            </div>
+                            <div class="form-group">
+                                <label>Delivery Address *</label>
+                                <textarea id="delivery-address" placeholder="Enter your complete address" rows="3"
+                                    required></textarea>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>City *</label>
+                                    <input type="text" id="delivery-city" placeholder="City" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Zip Code (India) *</label>
+                                    <input type="text" id="delivery-zipcode" placeholder="XXXXXX" maxlength="6"
+                                        required>
+                                </div>
+                            </div>
+                            <button class="pay-btn" onclick="showPaymentMethods()">Proceed to Payment →</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Payment Method Selection -->
+                    <div id="payment-methods-step" class="payment-step" style="display: none;">
+                        <h3>💳 Choose Payment Method</h3>
+                        <div class="payment-methods-grid">
+                            <div class="payment-method-option" onclick="selectPaymentMethod('card')">
+                                <div class="payment-icon">💳</div>
+                                <span>Credit/Debit Card</span>
+                            </div>
+                            <div class="payment-method-option" onclick="selectPaymentMethod('upi')">
+                                <div class="payment-icon">📱</div>
+                                <span>UPI</span>
+                            </div>
+                            <div class="payment-method-option" onclick="selectPaymentMethod('netbanking')">
+                                <div class="payment-icon">🏦</div>
+                                <span>Net Banking</span>
+                            </div>
+                            <div class="payment-method-option" onclick="selectPaymentMethod('razorpay')">
+                                <div class="payment-icon">⚡</div>
+                                <span>Razor Pay</span>
+                            </div>
+                            <div class="payment-method-option" onclick="selectPaymentMethod('gpay')">
+                                <div class="payment-icon">🔵</div>
+                                <span>Google Pay</span>
+                            </div>
+                            <div class="payment-method-option" onclick="selectPaymentMethod('paytm')">
+                                <div class="payment-icon">💙</div>
+                                <span>Paytm</span>
+                            </div>
+                        </div>
+                        <button class="pay-btn back-btn" onclick="backToAddress()">← Back to Address</button>
+                    </div>
+
+                    <!-- Step 3: Card Payment Details -->
+                    <div id="card-payment-step" class="payment-step" style="display: none;">
+                        <h3>💳 Card Payment</h3>
+                        <div class="payment-form">
+                            <div class="form-group">
+                                <label>Cardholder Name</label>
+                                <input type="text" id="card-name" placeholder="Enter your name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Card Number</label>
+                                <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19"
+                                    required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Expiry Date</label>
+                                    <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>CVV</label>
+                                    <input type="text" id="card-cvv" placeholder="123" maxlength="3" required>
+                                </div>
+                            </div>
+                            <button class="pay-btn" onclick="processCardPayment()">Pay Now</button>
+                            <button class="pay-btn back-btn" onclick="backToPaymentMethods()">← Back</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: UPI Payment Details -->
+                    <div id="upi-payment-step" class="payment-step" style="display: none;">
+                        <h3>📱 UPI Payment</h3>
+                        <div class="payment-form">
+                            <div class="form-group">
+                                <label>UPI ID</label>
+                                <input type="text" id="upi-id" placeholder="yourname@upi" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Amount</label>
+                                <input type="text" id="upi-amount" readonly>
+                            </div>
+                            <button class="pay-btn" onclick="processUPIPayment()">Pay with UPI</button>
+                            <button class="pay-btn back-btn" onclick="backToPaymentMethods()">← Back</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Net Banking Details -->
+                    <div id="netbanking-payment-step" class="payment-step" style="display: none;">
+                        <h3>🏦 Net Banking</h3>
+                        <div class="payment-form">
+                            <div class="form-group">
+                                <label>Select Bank</label>
+                                <select id="bank-select" class="vip-input" required>
+                                    <option value="">Choose your bank</option>
+                                    <option value="sbi">State Bank of India</option>
+                                    <option value="hdfc">HDFC Bank</option>
+                                    <option value="icici">ICICI Bank</option>
+                                </select>
+                            </div>
+                            <button class="pay-btn" onclick="processNetBankingPayment()">Pay with Net Banking</button>
+                            <button class="pay-btn back-btn" onclick="backToPaymentMethods()">← Back</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="shared-cart.js"></script>
+    <script>
+        let cart = SharedCart.loadSharedCart();
+
+        function loadCart() {
+            cart = SharedCart.loadSharedCart();
+            updateCart();
+        }
+
+        function saveCart() {
+            SharedCart.saveSharedCart(cart);
+            cart = SharedCart.loadSharedCart();
+        }
+
+        function addToCart(name, price, image) {
+            cart = SharedCart.loadSharedCart();
+            const existingItem = cart.find(item => item.name === name);
+            if (existingItem) {
+                existingItem.quantity = SharedCart.getItemQty(existingItem) + 1;
+                existingItem.qty = existingItem.quantity;
+            } else {
+                cart.push(SharedCart.normalizeItem({ name, price, image, img: image, id: name, category: 'combos', quantity: 1 }));
+            }
+            saveCart();
+            updateCart();
+            showNotification('Added to cart!');
+        }
+
+        function removeFromCart(name) {
+            cart = SharedCart.loadSharedCart().filter(item => item.name !== name);
+            saveCart();
+            updateCart();
+        }
+
+        function updateQuantity(name, change) {
+            cart = SharedCart.loadSharedCart();
+            const item = cart.find(item => item.name === name);
+            if (item) {
+                item.quantity = SharedCart.getItemQty(item) + change;
+                item.qty = item.quantity;
+                if (item.quantity <= 0) {
+                    removeFromCart(name);
+                } else {
+                    saveCart();
+                    updateCart();
+                }
+            }
+        }
+
+        function updateCart() {
+            cart = SharedCart.loadSharedCart();
+            const cartItems = document.getElementById('cart-items');
+            const cartCount = document.getElementById('cart-count');
+            const cartTotal = document.getElementById('cart-total');
+            const cartEmpty = document.getElementById('cart-empty');
+            const cartCheckout = document.getElementById('cart-checkout');
+
+            cartCount.textContent = cart.reduce((sum, item) => sum + SharedCart.getItemQty(item), 0);
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '';
+                cartEmpty.style.display = 'block';
+                cartCheckout.style.display = 'none';
+            } else {
+                cartEmpty.style.display = 'none';
+                cartCheckout.style.display = 'block';
+                let html = '';
+                SharedCart.groupCartByCategory(cart).forEach(group => {
+                    html += SharedCart.categorySectionOpenHtml(group.label);
+                    group.items.forEach(({ item }) => {
+                        const qty = SharedCart.getItemQty(item);
+                        const safeName = item.name.replace(/'/g, "\\'");
+                        html += '<div class="cart-item"><img src="' + (item.image || item.img) + '" alt="' + item.name + '" class="cart-item-image" onerror="this.src=\'https://placehold.co/100?text=Product\'"><div class="cart-item-info"><div class="cart-item-name">' + item.name + '</div><div class="cart-item-price">₹' + item.price + '</div></div><div class="cart-item-controls"><button class="qty-btn minus" onclick="updateQuantity(\'' + safeName + '\', -1)">-</button><span class="qty-display">' + qty + '</span><button class="qty-btn plus" onclick="updateQuantity(\'' + safeName + '\', 1)">+</button><button class="remove-btn" onclick="removeFromCart(\'' + safeName + '\')">×</button></div></div>';
+                    });
+                    html += SharedCart.categorySectionCloseHtml();
+                });
+                cartItems.innerHTML = html;
+            }
+
+            const total = cart.reduce((sum, item) => sum + (item.price * SharedCart.getItemQty(item)), 0);
+            cartTotal.textContent = total;
+        }
+
+        window.addEventListener('load', loadCart);
+        SharedCart.bindCartRefresh(loadCart);
+        function openCart() { loadCart(); document.getElementById('cart-modal').style.display = 'block'; }
+        function closeCart() { document.getElementById('cart-modal').style.display = 'none'; }
+        function checkout() { if (cart.length === 0) { showNotification('Your cart is empty!'); return; } document.getElementById('payment-section').style.display = 'block'; document.getElementById('address-step').style.display = 'block'; }
+        function showPaymentMethods() { document.getElementById('address-step').style.display = 'none'; document.getElementById('payment-methods-step').style.display = 'block'; }
+        function backToAddress() { document.getElementById('payment-methods-step').style.display = 'none'; document.getElementById('address-step').style.display = 'block'; }
+        function selectPaymentMethod(method) { document.querySelectorAll('.payment-method-option').forEach(opt => opt.classList.remove('selected')); event.currentTarget.classList.add('selected'); document.getElementById('payment-methods-step').style.display = 'none'; document.getElementById(method + '-payment-step').style.display = 'block'; if (method === 'upi') { document.getElementById('upi-amount').value = cart.reduce((sum, item) => sum + (item.price * SharedCart.getItemQty(item)), 0); } }
+        function backToPaymentMethods() { document.querySelectorAll('.payment-step').forEach(step => step.style.display = 'none'); document.getElementById('payment-methods-step').style.display = 'block'; }
+        function processCardPayment() { showNotification('Processing card payment...'); setTimeout(() => { showNotification('Payment successful! Order placed.'); cart = []; saveCart(); updateCart(); closeCart(); }, 2000); }
+        function processUPIPayment() { showNotification('Processing UPI payment...'); setTimeout(() => { showNotification('UPI payment successful! Order placed.'); cart = []; saveCart(); updateCart(); closeCart(); }, 2000); }
+        function processNetBankingPayment() { showNotification('Processing net banking payment...'); setTimeout(() => { showNotification('Net banking payment successful! Order placed.'); cart = []; saveCart(); updateCart(); closeCart(); }, 2000); }
+        function showNotification(message) { const notification = document.createElement('div'); notification.className = 'notification'; notification.textContent = message; document.body.appendChild(notification); setTimeout(() => { notification.remove(); }, 3000); }
+        const pageReveals = document.querySelectorAll('.page-reveal'); const revealOnScroll = () => { pageReveals.forEach(reveal => { const windowHeight = window.innerHeight; const revealTop = reveal.getBoundingClientRect().top; const revealPoint = 150; if (revealTop < windowHeight - revealPoint) { reveal.classList.add('active'); } }); }; window.addEventListener('scroll', revealOnScroll); window.addEventListener('load', revealOnScroll);
+        const nav = document.querySelector('.nav'); window.addEventListener('scroll', () => { if (window.scrollY > 100) { nav.classList.add('scrolled'); } else { nav.classList.remove('scrolled'); } });
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => { anchor.addEventListener('click', function (e) { e.preventDefault(); const target = document.querySelector(this.getAttribute('href')); if (target) { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); } }); });
+        window.onclick = function (event) { const modal = document.getElementById('cart-modal'); if (event.target === modal) { closeCart(); } }
+        const forms = document.querySelectorAll('form'); forms.forEach(form => { form.addEventListener('submit', (e) => { e.preventDefault(); const button = form.querySelector('button[type="submit"]'); const originalText = button.textContent; button.textContent = 'Processing...'; button.disabled = true; setTimeout(() => { button.textContent = 'Confirmed ✓'; button.style.background = 'linear-gradient(135deg, #00b894, #55efc4)'; setTimeout(() => { button.textContent = originalText; button.disabled = false; button.style.background = ''; form.reset(); }, 2000); }, 1500); }); });
+    </script>
+</body>
+
+</html>

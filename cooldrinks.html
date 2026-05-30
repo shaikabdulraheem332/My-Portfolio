@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AquaVibe | Fresh Modern Cool Drinks</title>
+    <meta name="description" content="Discover our refreshing collection of modern cool drinks. Experience the ultimate summer vibe with our handcrafted, cold, and stylish beverages.">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --cyan: #00f2fe;
+            --aqua-blue: #4facfe;
+            --sky-blue: #74ebd5;
+            --deep-blue: #09203f;
+            --light-purple: #89f7fe;
+            --white: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 190, 255, 0.2);
+            --text-main: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--deep-blue) 0%, #1a4a76 50%, var(--aqua-blue) 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        /* Ambient Bubbles Background */
+        .bubbles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .bubble {
+            position: absolute;
+            bottom: -100px;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.1));
+            border-radius: 50%;
+            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5);
+            animation: rise cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            backdrop-filter: blur(2px);
+        }
+
+        @keyframes rise {
+            0% { transform: translateY(0) scale(0.5); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-120vh) scale(1.2); opacity: 0; }
+        }
+
+        /* Glassmorphism Utilities */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .glass-panel {
+            background: rgba(10, 30, 50, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 10px 5%;
+            background: rgba(9, 32, 63, 0.8);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px rgba(0, 242, 254, 0.5);
+        }
+
+        .logo i {
+            color: var(--cyan);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--cyan), var(--sky-blue));
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px var(--cyan);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .back-to-home-btn {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .back-to-home-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: var(--cyan);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+        }
+
+        .cart-btn-header {
+            background: linear-gradient(135deg, var(--aqua-blue), var(--cyan));
+            color: var(--deep-blue);
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+        }
+
+        .cart-btn-header:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 242, 254, 0.5);
+        }
+
+        .cart-count {
+            background: var(--white);
+            color: var(--deep-blue);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 5% 50px;
+            z-index: 10;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--cyan);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            display: block;
+            text-shadow: 0 0 10px rgba(0, 242, 254, 0.4);
+        }
+
+        .hero-title {
+            font-size: 5.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            background: linear-gradient(to right, #ffffff, var(--cyan), var(--sky-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 20px rgba(0, 242, 254, 0.3));
+        }
+
+        .hero-desc {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .cta-btn {
+            background: linear-gradient(135deg, var(--white), var(--light-purple));
+            color: var(--deep-blue);
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 255, 255, 0.4), 0 0 20px var(--cyan);
+        }
+
+        /* Section Titles */
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+        }
+
+        .section-subtitle {
+            color: var(--cyan);
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Products Grid */
+        .products-section {
+            padding: 80px 5%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            border-radius: 25px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 242, 254, 0.2), inset 0 0 0 1px var(--cyan);
+        }
+
+        .product-card:hover::before {
+            opacity: 1;
+        }
+
+        .product-img-wrapper {
+            width: 200px;
+            height: 250px;
+            margin: 0 auto 20px;
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .product-card:hover .product-img {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--cyan);
+            color: var(--deep-blue);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            box-shadow: 0 4px 10px rgba(0, 242, 254, 0.4);
+            z-index: 2;
+        }
+
+        .product-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--white);
+        }
+
+        .product-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .product-price {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--cyan);
+            text-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
+        }
+
+        .add-to-cart-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--cyan);
+            color: var(--cyan);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart-btn:hover {
+            background: var(--cyan);
+            color: var(--deep-blue);
+            transform: rotate(90deg);
+            box-shadow: 0 0 15px var(--cyan);
+        }
+
+        /* Delivery / Features Section */
+        .features {
+            padding: 60px 5%;
+            position: relative;
+            z-index: 10;
+            background: linear-gradient(to top, rgba(9, 32, 63, 0.8), transparent);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--cyan);
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .feature-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(4, 15, 30, 0.95);
+            padding: 60px 5% 30px;
+            position: relative;
+            z-index: 10;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 15px;
+        }
+
+        .footer-desc {
+            color: var(--text-muted);
+            max-width: 300px;
+            line-height: 1.6;
+        }
+
+        .footer-links h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--cyan);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--cyan);
+            color: var(--deep-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 242, 254, 0.4);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Cart Sidebar Overlay */
+        .cart-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 1999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .cart-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -450px;
+            width: 100%;
+            max-width: 450px;
+            height: 100vh;
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 25px;
+            background: rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-header h2 {
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-cart:hover {
+            color: var(--cyan);
+        }
+
+        .cart-items {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .cart-items::-webkit-scrollbar {
+            width: 6px;
+        }
+        .cart-items::-webkit-scrollbar-thumb {
+            background: var(--cyan);
+            border-radius: 10px;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            align-items: center;
+        }
+
+        .cart-item-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .cart-item-details {
+            flex-grow: 1;
+        }
+
+        .cart-item-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            color: var(--cyan);
+            font-weight: 700;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            padding: 5px 10px;
+        }
+
+        .qty-btn {
+            background: none;
+            border: none;
+            color: var(--white);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .qty-btn:hover {
+            color: var(--cyan);
+        }
+
+        .item-qty {
+            font-weight: 600;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .remove-item {
+            background: rgba(255, 71, 87, 0.1);
+            color: #ff4757;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .remove-item:hover {
+            background: #ff4757;
+            color: white;
+        }
+
+        .cart-empty {
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 50px;
+        }
+        .cart-empty i {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        .cart-footer {
+            padding: 25px;
+            background: rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(135deg, var(--cyan), var(--aqua-blue));
+            color: var(--deep-blue);
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 20px rgba(0, 242, 254, 0.3);
+        }
+
+        .checkout-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 242, 254, 0.5);
+        }
+        
+        .checkout-btn:disabled {
+            background: rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.5);
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        /* Payment Modal Overlay */
+        .payment-modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            z-index: 2100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .payment-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .payment-content {
+            width: 90%;
+            max-width: 500px;
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .payment-modal.active .payment-content {
+            transform: translateY(0);
+        }
+
+        .payment-header {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .payment-header h3 {
+            font-size: 1.8rem;
+            color: var(--white);
+            margin-bottom: 5px;
+        }
+
+        .close-payment {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            width: 35px; height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .close-payment:hover {
+            background: var(--cyan);
+            color: var(--deep-blue);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 10px;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--cyan);
+            background: rgba(0,0,0,0.4);
+            box-shadow: 0 0 10px rgba(0,242,254,0.2);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .payment-methods {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .method-card {
+            flex: 1;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .method-card.active {
+            border-color: var(--cyan);
+            background: rgba(0, 242, 254, 0.1);
+            box-shadow: 0 0 15px rgba(0,242,254,0.2);
+        }
+
+        .method-card i {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            color: var(--white);
+        }
+        .method-card.active i {
+            color: var(--cyan);
+        }
+
+        .pay-submit-btn {
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(135deg, #00f2fe, #4facfe);
+            color: var(--deep-blue);
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 242, 254, 0.4);
+        }
+
+        .pay-submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 242, 254, 0.6);
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 242, 254, 0.9);
+            color: var(--deep-blue);
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0, 242, 254, 0.4);
+            z-index: 3000;
+            transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toast.show {
+            bottom: 30px;
+        }
+
+        /* Animations & Keyframes */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 3.5rem; }
+            .hero-subtitle { font-size: 1.2rem; }
+            .nav-links { display: none; }
+            .section-title { font-size: 2.2rem; }
+            .cart-sidebar { width: 100%; right: -100%; max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ambient Bubbles -->
+    <div class="bubbles" id="bubbles-container"></div>
+
+    <!-- Header -->
+    <header id="header" class="glass">
+        <a href="index.html" class="logo">
+            <i class="fa-solid fa-droplet"></i> AquaVibe
+        </a>
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="#menu">Menu</a>
+            <a href="#features">Services</a>
+        </nav>
+        <div class="header-actions">
+            <a href="index.html" class="back-to-home-btn">← Back to Home</a>
+            <button class="cart-btn-header" onclick="toggleCart()">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span>Cart</span>
+                <div class="cart-count" id="cartCount">0</div>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <span class="hero-subtitle">Refresh Your Senses</span>
+            <h1 class="hero-title">Taste the Cool<br>Summer Breeze</h1>
+            <p class="hero-desc">Experience our visually stunning, ultra-refreshing modern beverages crafted with fresh ingredients and a splash of magic. Dive into the cool side of life.</p>
+            <a href="#menu" class="cta-btn">Explore Menu <i class="fa-solid fa-arrow-right" style="margin-left:8px;"></i></a>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="products-section" id="menu">
+        <div class="section-header">
+            <span class="section-subtitle">Our Signature Collection</span>
+            <h2 class="section-title">Refreshing Beverages</h2>
+        </div>
+
+        <div class="products-grid" id="products-grid">
+            <!-- Product Cards will be injected by JS -->
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="section-header">
+            <span class="section-subtitle">Why Choose Us</span>
+            <h2 class="section-title">The AquaVibe Experience</h2>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card glass">
+                <i class="fa-solid fa-snowflake feature-icon"></i>
+                <h3 class="feature-title">Always Ice Cold</h3>
+                <p class="feature-desc">Our drinks are served at the perfect temperature with crystal clear ice to ensure maximum refreshment.</p>
+            </div>
+            <div class="feature-card glass">
+                <i class="fa-solid fa-leaf feature-icon"></i>
+                <h3 class="feature-title">Fresh Ingredients</h3>
+                <p class="feature-desc">We use only premium, locally sourced fruits and herbs to craft our signature flavors.</p>
+            </div>
+            <div class="feature-card glass">
+                <i class="fa-solid fa-motorcycle feature-icon"></i>
+                <h3 class="feature-title">Lightning Delivery</h3>
+                <p class="feature-desc">Special thermal packaging ensures your beverages arrive perfectly chilled directly to your door.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="#" class="logo" style="font-size: 1.8rem;">
+                    <i class="fa-solid fa-droplet"></i> AquaVibe
+                </a>
+                <p class="footer-desc">Redefining the modern beverage experience with style, taste, and ultimate refreshment. Stay cool, stay fresh.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#features">Services</a></li>
+                    <li><a href="#">About Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Refund Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 AquaVibe Beverages. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Cart Overlay & Sidebar -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <div class="cart-sidebar glass-panel" id="cartSidebar">
+        <div class="cart-header">
+            <h2><i class="fa-solid fa-cart-shopping"></i> Your Cart</h2>
+            <button class="close-cart" onclick="toggleCart()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="cart-items" id="cartItemsContainer">
+            <!-- Cart items injected here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotalPrice">$0.00</span>
+            </div>
+            <button class="checkout-btn" id="checkoutBtn" onclick="openPaymentModal()" disabled>
+                Proceed to Checkout
+            </button>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="payment-modal" id="paymentModal">
+        <div class="payment-content glass-panel">
+            <button class="close-payment" onclick="closePaymentModal()"><i class="fa-solid fa-xmark"></i></button>
+            <div class="payment-header">
+                <h3>Secure Checkout</h3>
+                <p style="color: var(--cyan); font-weight: 600;">Total to pay: <span id="paymentTotal">$0.00</span></p>
+            </div>
+            
+            <div class="payment-methods">
+                <div class="method-card active" onclick="selectPayment(this)">
+                    <i class="fa-regular fa-credit-card"></i>
+                    <div>Card</div>
+                </div>
+                <div class="method-card" onclick="selectPayment(this)">
+                    <i class="fa-brands fa-apple"></i>
+                    <div>Apple Pay</div>
+                </div>
+                <div class="method-card" onclick="selectPayment(this)">
+                    <i class="fa-brands fa-paypal"></i>
+                    <div>PayPal</div>
+                </div>
+            </div>
+
+            <form id="paymentForm" onsubmit="processPayment(event)">
+                <div class="form-group">
+                    <label>Cardholder Name</label>
+                    <input type="text" class="form-control" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label>Card Number</label>
+                    <input type="text" class="form-control" required placeholder="0000 0000 0000 0000" maxlength="19">
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="flex: 1;">
+                        <label>Expiry Date</label>
+                        <input type="text" class="form-control" required placeholder="MM/YY" maxlength="5">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label>CVV</label>
+                        <input type="text" class="form-control" required placeholder="123" maxlength="3">
+                    </div>
+                </div>
+                <button type="submit" class="pay-submit-btn">
+                    <i class="fa-solid fa-lock" style="margin-right: 8px;"></i> Pay Now
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="toastMessage">Item added to cart!</span>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="shared-cart.js"></script>
+    <script>
+        // --- Ambient Bubbles ---
+        function createBubbles() {
+            const container = document.getElementById('bubbles-container');
+            const bubbleCount = 20;
+            
+            for (let i = 0; i < bubbleCount; i++) {
+                let bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+                
+                // Randomize size, position, and animation duration
+                let size = Math.random() * 40 + 10;
+                let left = Math.random() * 100;
+                let duration = Math.random() * 8 + 4;
+                let delay = Math.random() * 5;
+                
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                bubble.style.left = `${left}%`;
+                bubble.style.animationDuration = `${duration}s`;
+                bubble.style.animationDelay = `${delay}s`;
+                
+                container.appendChild(bubble);
+            }
+        }
+        createBubbles();
+
+        // --- Header Scroll Effect ---
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // --- Product Data ---
+        const products = [
+            {
+                id: 'drink1',
+                name: 'Mint Mojito Breeze',
+                desc: 'A classic refreshing blend of fresh mint, lime juice, sparkling water, and crushed ice.',
+                price: 149,
+                img: 'https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=600&q=80',
+                badge: 'Popular'
+            },
+            {
+                id: 'drink2',
+                name: 'Berry Blast Iced',
+                desc: 'Mixed wild berries muddled with ice, a hint of lemon, and sweet sparkling soda.',
+                price: 179,
+                img: 'https://images.unsplash.com/photo-1536935338788-846bb9981813?w=600&q=80',
+                badge: 'New'
+            },
+            {
+                id: 'drink3',
+                name: 'Tropical Citrus Glow',
+                desc: 'Sunshine in a glass with fresh orange, lemon, and a splash of exotic passionfruit.',
+                price: 189,
+                img: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=600&q=80',
+                badge: null
+            },
+            {
+                id: 'drink4',
+                name: 'Aqua Blue Lagoon',
+                desc: 'Deep blue curacao syrup, lemonade, and sparkling water for a visually stunning chilled drink.',
+                price: 199,
+                img: 'https://middaydrinks.com/wp-content/uploads/2023/10/blue-lagoon-mocktail-683x1024.jpg',
+                badge: 'Signature'
+            },
+            {
+                id: 'drink5',
+                name: 'Iced Matcha Zen',
+                desc: 'Premium organic matcha green tea lightly sweetened, served over ice with a splash of oat milk.',
+                price: 189,
+                img: 'https://static.vecteezy.com/system/resources/previews/060/731/010/non_2x/layered-zen-iced-matcha-latte-in-glass-free-photo.jpg',
+                badge: 'Healthy'
+            },
+            {
+                id: 'drink6',
+                name: 'Watermelon Frost',
+                desc: 'Freshly blended cold watermelon slush with a hint of mint and lime for peak summer vibes.',
+                price: 139,
+                img: 'https://images.unsplash.com/photo-1563227812-0ea4c22e6cc8?w=600&q=80',
+                badge: 'Seasonal'
+            },
+            {
+                id: 'drink7',
+                name: 'Cold Brew Cascade',
+                desc: 'Smooth, 18-hour steeped cold brew coffee served over ice for that perfect energy kick.',
+                price: 129,
+                img: 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=600&q=80',
+                badge: null
+            },
+            {
+                id: 'drink8',
+                name: 'Pink Guava Cooler',
+                desc: 'Exotic pink guava juice mixed with coconut water and ice. A sweet tropical escape.',
+                price: 169,
+                img: 'https://images.unsplash.com/photo-1558160074-4d7d8bdf4256?w=600&q=80',
+                badge: 'Sweet'
+            },
+            {
+                id: 'shake1',
+                name: 'Rich Chocolate Fudge Shake',
+                desc: 'Thick, creamy blend of premium dark chocolate ice cream topped with whipped cream and fudge drizzle.',
+                price: 249,
+                img: 'https://iambaker.net/wp-content/uploads/2024/06/Chocolate-Shake-2.jpg',
+                badge: 'Indulgent'
+            },
+            {
+                id: 'shake2',
+                name: 'Strawberry Dream Shake',
+                desc: 'A classic rich shake made with fresh strawberries and real vanilla bean ice cream.',
+                price: 219,
+                img: 'https://images.unsplash.com/photo-1553530666-ba11a7da3888?w=600&q=80',
+                badge: 'Classic'
+            },
+            {
+                id: 'shake3',
+                name: 'Vanilla Caramel Cloud',
+                desc: 'Smooth vanilla milkshake infused with sea salt caramel and topped with a fluffy whipped cloud.',
+                price: 229,
+                img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRz6DT9GY-Dj_MpIJd2mPDqI3fZupdVLvOIAA&s',
+                badge: null
+            }
+        ];
+
+        // --- Render Products ---
+        function renderProducts() {
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = products.map(product => `
+                <div class="product-card glass">
+                    ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
+                    <div class="product-img-wrapper">
+                        <img src="${product.img}" alt="${product.name}" class="product-img">
+                    </div>
+                    <h3 class="product-title">${product.name}</h3>
+                    <p class="product-desc">${product.desc}</p>
+                    <div class="product-footer">
+                        <span class="product-price">₹${product.price}</span>
+                        <button class="add-to-cart-btn" onclick="addToCart('${product.id}')">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        renderProducts();
+
+        // --- Cart Logic (shared across all category pages) ---
+        let cart = SharedCart.loadSharedCart();
+
+        function saveCart() {
+            SharedCart.saveSharedCart(cart);
+            cart = SharedCart.loadSharedCart();
+        }
+
+        function addToCart(productId) {
+            cart = SharedCart.loadSharedCart();
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const existingItem = cart.find(item => String(item.id) === String(productId));
+            if (existingItem) {
+                existingItem.quantity = SharedCart.getItemQty(existingItem) + 1;
+                existingItem.qty = existingItem.quantity;
+            } else {
+                cart.push(SharedCart.normalizeItem({
+                    name: product.name,
+                    price: product.price,
+                    img: product.img,
+                    image: product.img,
+                    id: product.id,
+                    category: 'cooldrinks',
+                    quantity: 1
+                }));
+            }
+
+            saveCart();
+            updateCartUI();
+            showToast(`Added ${product.name} to cart!`);
+        }
+
+        function updateItemQty(productId, delta) {
+            cart = SharedCart.loadSharedCart();
+            const item = cart.find(i => String(i.id) === String(productId));
+            if (item) {
+                item.quantity = SharedCart.getItemQty(item) + delta;
+                item.qty = item.quantity;
+                if (item.quantity <= 0) {
+                    cart = cart.filter(i => String(i.id) !== String(productId));
+                }
+                saveCart();
+                updateCartUI();
+            }
+        }
+
+        function removeItem(productId) {
+            cart = SharedCart.loadSharedCart().filter(i => String(i.id) !== String(productId));
+            saveCart();
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            cart = SharedCart.loadSharedCart();
+            const container = document.getElementById('cartItemsContainer');
+            const countEl = document.getElementById('cartCount');
+            const totalEl = document.getElementById('cartTotalPrice');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+
+            const totalItems = cart.reduce((sum, item) => sum + SharedCart.getItemQty(item), 0);
+            countEl.textContent = totalItems;
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="cart-empty">
+                        <i class="fa-solid fa-basket-shopping"></i>
+                        <p>Your cart is looking a little empty.</p>
+                    </div>
+                `;
+                checkoutBtn.disabled = true;
+            } else {
+                let html = '';
+                SharedCart.groupCartByCategory(cart).forEach(group => {
+                    html += SharedCart.categorySectionOpenHtml(group.label);
+                    group.items.forEach(({ item }) => {
+                        const qty = SharedCart.getItemQty(item);
+                        html += `
+                    <div class="cart-item">
+                        <img src="${item.img || item.image}" alt="${item.name}" class="cart-item-img">
+                        <div class="cart-item-details">
+                            <div class="cart-item-title">${item.name}</div>
+                            <div class="cart-item-price">₹${(item.price * qty)}</div>
+                        </div>
+                        <div class="cart-item-controls">
+                            <button class="qty-btn" onclick="updateItemQty('${item.id}', -1)"><i class="fa-solid fa-minus"></i></button>
+                            <span class="item-qty">${qty}</span>
+                            <button class="qty-btn" onclick="updateItemQty('${item.id}', 1)"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                        <button class="remove-item" onclick="removeItem('${item.id}')"><i class="fa-solid fa-trash"></i></button>
+                    </div>`;
+                    });
+                    html += SharedCart.categorySectionCloseHtml();
+                });
+                container.innerHTML = html;
+                checkoutBtn.disabled = false;
+            }
+
+            const totalCost = cart.reduce((sum, item) => sum + (item.price * SharedCart.getItemQty(item)), 0);
+            totalEl.textContent = `₹${totalCost}`;
+            document.getElementById('paymentTotal').textContent = `₹${totalCost}`;
+        }
+
+        SharedCart.bindCartRefresh(updateCartUI);
+        updateCartUI();
+
+        function toggleCart() {
+            updateCartUI();
+            const sidebar = document.getElementById('cartSidebar');
+            const overlay = document.getElementById('cartOverlay');
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        // --- Payment Modal ---
+        function openPaymentModal() {
+            toggleCart(); // Close cart
+            document.getElementById('paymentModal').classList.add('active');
+        }
+
+        function closePaymentModal() {
+            document.getElementById('paymentModal').classList.remove('active');
+        }
+
+        function selectPayment(element) {
+            document.querySelectorAll('.method-card').forEach(c => c.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        function processPayment(e) {
+            e.preventDefault();
+            const btn = document.querySelector('.pay-submit-btn');
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Processing...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                closePaymentModal();
+                cart = [];
+                saveCart();
+                updateCartUI();
+                showToast("Payment Successful! Your cool drinks are on the way. 🧊", 4000);
+                btn.innerHTML = '<i class="fa-solid fa-lock" style="margin-right: 8px;"></i> Pay Now';
+                btn.disabled = false;
+                document.getElementById('paymentForm').reset();
+            }, 2000);
+        }
+
+        // --- Toast Notification ---
+        let toastTimeout;
+        function showToast(message, duration = 3000) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').textContent = message;
+            toast.classList.add('show');
+            
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, duration);
+        }
+
+        // Initialize UI
+        updateCartUI();
+    </script>
+</body>
+</html>

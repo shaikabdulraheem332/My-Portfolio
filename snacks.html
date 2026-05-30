@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnackHub | Modern Snack Delivery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Outfit:wght@400;600;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #f97316;
+            --primary-dark: #ea580c;
+            --secondary: #ef4444;
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --glass: rgba(30, 41, 59, 0.7);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image:
+                radial-gradient(at 0% 0%, rgba(249, 115, 22, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(239, 68, 68, 0.05) 0px, transparent 50%);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1,
+        h2,
+        h3,
+        .logo {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* --- Animations --- */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+            }
+
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .reveal {
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        /* --- Header --- */
+        header {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav ul li a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: 0.5px;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+            transform: translateX(-50%);
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        nav ul li a:hover::after {
+            width: 80%;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .cart-icon:hover {
+            transform: scale(1.1);
+            color: var(--primary);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: var(--secondary);
+            color: white;
+            font-size: 0.7rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* --- Hero --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background:
+                linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.8)),
+                url('https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&q=80&w=2000') center/cover;
+            padding: 0 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(249, 115, 22, 0.15) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        .hero-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            padding: 4rem 3rem;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .hero-content h1 {
+            font-size: 5.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff 30%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+        }
+
+        .hero-content p {
+            font-size: 1.4rem;
+            color: var(--text-main);
+            opacity: 0.9;
+            max-width: 650px;
+            margin: 0 auto 3rem;
+            font-weight: 300;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3) !important;
+            margin-left: 1.5rem;
+        }
+
+        .btn-ghost:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: white !important;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(249, 115, 22, 0.6);
+        }
+
+        /* --- Categories & Filter --- */
+        .section-title {
+            text-align: center;
+            margin: 4rem 0 2rem;
+            font-size: 2.5rem;
+        }
+
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.6rem 1.5rem;
+            border-radius: 30px;
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* --- Menu Grid --- */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2.5rem;
+            padding: 0 5% 5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: var(--primary);
+        }
+
+        .product-img-container {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-img {
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-category {
+            color: var(--primary);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .add-btn {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(249, 115, 22, 0.1);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .add-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* --- Cart Sidebar --- */
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 400px;
+            height: 100%;
+            background: var(--bg-dark);
+            z-index: 2000;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-overlay.active {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 1rem;
+        }
+
+        .close-cart {
+            font-size: 2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-cart:hover {
+            color: var(--secondary);
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 2rem;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .cart-item-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .cart-item-price {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .cart-item-qty {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .qty-btn {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            border: 1px solid var(--text-muted);
+            background: transparent;
+            color: var(--text-main);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.5rem;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- Checkout Modal --- */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .checkout-form {
+            background: var(--bg-card);
+            padding: 3rem;
+            border-radius: 30px;
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-group select option {
+            background-color: #1e293b; /* Dark background for options */
+            color: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        /* --- Footer --- */
+        .footer-premium {
+            background: #070b14;
+            padding: 5rem 5% 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 5rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 280px;
+            padding: 20px;
+        }
+
+        .footer-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-section p {
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .footer-section a {
+            transition: var(--transition);
+        }
+
+        .footer-section a:hover {
+            color: var(--primary) !important;
+            padding-left: 8px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            margin-top: 3rem;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        /* --- Mobile Responsive --- */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem 5%;
+            }
+
+            nav {
+                display: none;
+            }
+
+            /* Could add a hamburger menu */
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .cart-overlay {
+                width: 100%;
+            }
+
+            .checkout-form {
+                padding: 2rem;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="#" class="logo">Snack<span>Hub</span></a>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#delivery">Delivery</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="header-actions">
+            <a href="index.html" class="btn" style="border: 1px solid rgba(255,255,255,0.2); color: white; padding: 0.6rem 1.2rem; font-size: 0.85rem; font-weight: 500;">← Back to Home</a>
+            <div class="cart-icon" id="cartToggle">
+                🛒
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+            <a href="#menu" class="btn btn-primary" style="padding: 0.6rem 1.5rem; font-size: 0.9rem;">Order Now</a>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-card reveal">
+            <div class="hero-content">
+                <div class="hero-tag"
+                    style="color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 1.5rem; font-size: 0.9rem;">
+                    The Art of Snacking</div>
+                <h1>Crave The Crunch</h1>
+                <p>Experience the ultimate crunch with our premium artisanal snacks, hand-crafted for the bold and the
+                    hungry.</p>
+                <div class="hero-btns">
+                    <a href="#menu" class="btn btn-primary">Explore Menu</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu">
+        <h2 class="section-title reveal">Our Signature Snacks</h2>
+
+        <div class="filter-container reveal">
+            <button class="filter-btn active" data-filter="all">All Snacks</button>
+            <button class="filter-btn" data-filter="spicy">🔥 Spicy</button>
+            <button class="filter-btn" data-filter="cheesy">🧀 Cheesy</button>
+            <button class="filter-btn" data-filter="crunchy">🥨 Crunchy</button>
+            <button class="filter-btn" data-filter="sweet">🍩 Sweet</button>
+        </div>
+
+        <div class="menu-grid" id="productGrid">
+            <!-- Products injected by JS -->
+        </div>
+    </section>
+
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" id="cartOverlay">
+        <div class="cart-header">
+            <h3>Your Cravings</h3>
+            <span class="close-cart" id="closeCart">&times;</span>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items injected by JS -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">₹0</span>
+            </div>
+            <button class="btn btn-primary" style="width: 100%;" id="checkoutBtn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal" id="checkoutModal">
+        <div class="checkout-form">
+            <span class="close-cart" style="position: absolute; top: 20px; right: 20px;"
+                onclick="toggleModal('checkoutModal', false)">&times;</span>
+            <h2 style="margin-bottom: 2rem;">Secure Checkout</h2>
+            <form id="orderForm">
+                <div class="form-group">
+                    <label>Delivery Address</label>
+                    <input type="text" placeholder="123 Snack Street, Foodie City" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number (10 Digits) *</label>
+                    <input type="tel" id="phoneInput" placeholder="Enter 10-digit mobile number" 
+                        pattern="[0-9]{10}" maxlength="10" 
+                        oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                        required title="Please enter a valid 10-digit mobile number">
+                </div>
+                <div class="form-group">
+                    <label>Payment Method</label>
+                    <select id="paymentMethod" onchange="updatePaymentFields(this.value)">
+                        <option>Cash on Delivery</option>
+                        <option>Credit/Debit Card</option>
+                        <option>UPI / Net Banking</option>
+                    </select>
+                </div>
+
+                <div id="paymentCredentials" style="display: none; margin-top: 1rem; margin-bottom: 1rem; padding: 1.5rem; background: rgba(255,255,255,0.05); border-radius: 15px; border: 1px solid rgba(255,255,255,0.1);">
+                    <!-- Dynamic Fields -->
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Confirm
+                    Order</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delivery Features -->
+    <section id="delivery" class="delivery-features"
+        style="padding: 100px 5%; background: rgba(255,255,255,0.02); margin-top: 5rem;">
+        <div
+            style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; text-align: center;">
+            <div class="feature-card" data-aos="fade-up">
+                <div style="font-size: 3rem; margin-bottom: 1.5rem;">⚡</div>
+                <h3 style="color: white; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;">45-Min Delivery</h3>
+                <p style="color: var(--text-muted);">Fresh and hot snacks delivered to your doorstep in record time.</p>
+            </div>
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                <div style="font-size: 3rem; margin-bottom: 1.5rem;">🛡️</div>
+                <h3 style="color: white; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;">Hygienic Packing</h3>
+                <p style="color: var(--text-muted);">Safe, vacuum-sealed packaging to maintain crunch and freshness.</p>
+            </div>
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                <div style="font-size: 3rem; margin-bottom: 1.5rem;">🌟</div>
+                <h3 style="color: white; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;">Premium Quality</h3>
+                <p style="color: var(--text-muted);">Handcrafted snacks made with the finest global ingredients.</p>
+            </div>
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                <div style="font-size: 3rem; margin-bottom: 1.5rem;">💳</div>
+                <h3 style="color: white; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;">Secure Payment</h3>
+                <p style="color: var(--text-muted);">Multiple secure payment options for a seamless experience.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="footer-premium">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>📞 Contact Us</h3>
+                <form id="contact-form" onsubmit="alert('Message sent successfully!'); this.reset(); return false;">
+                    <div class="form-group">
+                        <label>Your Name *</label>
+                        <input type="text" required placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address *</label>
+                        <input type="email" required placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label>Message *</label>
+                        <textarea required placeholder="How can we help you?" rows="3"
+                            style="width: 100%; padding: 1rem; border-radius: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; outline: none; margin-bottom: 1rem;"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                </form>
+            </div>
+
+            <div class="footer-section">
+                <h3>📍 Visit Us</h3>
+                <div style="margin-top: 1.5rem;">
+                    <p style="color: var(--primary); font-weight: 700; margin-bottom: 0.5rem; font-size: 1.2rem;">ICE
+                        MAGIC CAFE</p>
+                    <p style="margin-bottom: 0.5rem;">Open Daily: 10 AM - 11 PM</p>
+                    <p style="margin-bottom: 1rem;">Weekend Late Night: Until 12 AM</p>
+                    <a href="https://www.google.com/maps/place/CAFE+ICE+MAGIC/@16.5057951,80.6469123,17z/data=!3m1!4b1!4m6!3m5!1s0x3a35fab19be1eab5:0xfdff1f5b861343a4!8m2!3d16.5057951!4d80.6469123!16s%2Fg%2F11c61pxkb2?entry=ttu&g_ep=EgoyMDI2MDQxNS4wIKXMDSoASAFQAw%3D%3D"
+                        target="_blank" class="btn"
+                        style="border: 1px solid var(--primary); color: var(--primary); display: inline-block;">📍 View
+                        on Map</a>
+                    <div style="margin-top: 1.2rem; display: flex; gap: 12px; flex-wrap: wrap;">
+                        <a href="https://www.instagram.com/cafeicemagic?igsh=MXNobmFxMm9jengwbQ==" target="_blank"
+                           style="background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366); color:white; padding: 9px 15px; border-radius: 10px; font-size: 13px; font-weight: 700; text-decoration: none; display:inline-flex; align-items:center; gap:6px;"
+                           title="Follow us on Instagram">📸 Instagram</a>
+                        <a href="https://www.facebook.com/share/1E1GXpEt6j/" target="_blank"
+                           style="background: #1877F2; color:white; padding: 9px 15px; border-radius: 10px; font-size: 13px; font-weight: 700; text-decoration: none; display:inline-flex; align-items:center; gap:6px;"
+                           title="Like us on Facebook">👍 Facebook</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>🥨 Quick Links</h3>
+                <ul style="list-style: none; margin-top: 1.5rem;">
+                    <li style="margin-bottom: 1rem;"><a href="index.html"
+                            style="color: var(--text-muted); text-decoration: none; transition: 0.3s;">Home</a></li>
+                    <li style="margin-bottom: 1rem;"><a href="#menu"
+                            style="color: var(--text-muted); text-decoration: none; transition: 0.3s;">Our Menu</a></li>
+                    <li style="margin-bottom: 1rem;"><a href="login.html"
+                            style="color: var(--text-muted); text-decoration: none; transition: 0.3s;">Login</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Ice MAgic Premium 🥨 | All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <script src="shared-cart.js"></script>
+    <script>
+        const products = [
+            { id: 1, name: 'Crispy Golden Fries', price: 150, category: 'crunchy', img: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&q=80&w=600' },
+            { id: 2, name: 'Peri-Peri Chicken Wings', price: 280, category: 'spicy', img: 'https://images.unsplash.com/photo-1567620832903-9fc6debc209f?auto=format&fit=crop&q=80&w=600' },
+            { id: 3, name: 'Loaded Cheese Nachos', price: 250, category: 'cheesy', img: 'https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?auto=format&fit=crop&q=80&w=600' },
+            { id: 4, name: 'Gourmet Onion Rings', price: 160, category: 'crunchy', img: 'https://images.unsplash.com/photo-1639024471283-03518883512d?auto=format&fit=crop&q=80&w=600' },
+            { id: 5, name: 'Mozzarella Cheese Sticks', price: 220, category: 'cheesy', img: 'https://easyweeknightrecipes.com/wp-content/uploads/2024/04/Mozzarella-Sticks_0013.jpg' },
+            { id: 6, name: 'Spicy Chicken Popcorn', price: 240, category: 'spicy', img: 'https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&q=80&w=600' },
+            { id: 7, name: 'Crispy Spring Rolls', price: 190, category: 'crunchy', img: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=600' },
+            { id: 8, name: 'Stuffed Jalapeno Poppers', price: 230, category: 'cheesy', img: 'https://www.thespruceeats.com/thmb/RIILT5OaoKkStcRnNTZCR6zQq6g=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/jalapeno-poppers-478725-c-graham-2020-002-edit-79552b4855624413bdf2b68cb62b1a67.jpg' },
+            { id: 9, name: 'Seasoned Potato Wedges', price: 180, category: 'crunchy', img: 'https://farmerspromise.com/wp-content/uploads/2021/06/Seasoned-Russet-Potato-Wedges.jpg' },
+            { id: 10, name: 'Assorted Sweet Donuts', price: 200, category: 'sweet', img: 'https://i.pinimg.com/736x/18/bf/9c/18bf9cf62d1595206b9d2d1610a9e31b.jpg' },
+            { id: 11, name: 'Dynamite Shrimp', price: 350, category: 'spicy', img: 'https://www.chilitochoc.com/wp-content/uploads/2020/08/dynamiteshrimp-featured-image.jpg' },
+            { id: 12, name: 'Cheesy Garlic Bread', price: 180, category: 'cheesy', img: 'https://homecookedharvest.com/wp-content/uploads/2022/06/Stuffed-Garlic-Bread-G.jpg' },
+            { id: 13, name: 'Mini Samosa Basket', price: 140, category: 'crunchy', img: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&q=80&w=600' },
+            { id: 14, name: 'Crispy Corn Kernels', price: 160, category: 'crunchy', img: 'https://rakskitchen.net/wp-content/uploads/2022/01/crisp-corn.jpg' },
+            { id: 15, name: 'Chocolate Lava Cake', price: 250, category: 'sweet', img: 'https://images.unsplash.com/photo-1624353365286-3f8d62daad51?auto=format&fit=crop&q=80&w=600' }
+        ];
+
+        let cart = SharedCart.loadSharedCart();
+
+        // DOM Elements
+        const productGrid = document.getElementById('productGrid');
+        const cartOverlay = document.getElementById('cartOverlay');
+        const cartItemsContainer = document.getElementById('cartItems');
+        const cartCount = document.getElementById('cartCount');
+        const cartTotal = document.getElementById('cartTotal');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+
+        // Initialize App
+        function init() {
+            renderProducts(products);
+            updateCartUI();
+            setupEventListeners();
+        }
+
+        function renderProducts(items) {
+            productGrid.innerHTML = items.map(product => `
+                <div class="product-card reveal" data-category="${product.category}">
+                    <div class="product-img-container">
+                        <img src="${product.img}" alt="${product.name}" class="product-img">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">${product.category}</div>
+                        <h3 class="product-name">${product.name}</h3>
+                        <div class="product-price">₹${product.price}</div>
+                        <button class="add-btn" onclick="addToCart(${product.id})">Add to Cravings</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function setupEventListeners() {
+            document.getElementById('cartToggle').onclick = () => {
+                cart = SharedCart.loadSharedCart();
+                updateCartUI();
+                cartOverlay.classList.add('active');
+            };
+            document.getElementById('closeCart').onclick = () => cartOverlay.classList.remove('active');
+
+            filterBtns.forEach(btn => {
+                btn.onclick = () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const filter = btn.dataset.filter;
+                    const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+                    renderProducts(filtered);
+                };
+            });
+
+            document.getElementById('checkoutBtn').onclick = () => {
+                if (cart.length === 0) return alert('Your cart is empty!');
+                cartOverlay.classList.remove('active');
+                toggleModal('checkoutModal', true);
+            };
+
+            document.getElementById('orderForm').onsubmit = (e) => {
+                e.preventDefault();
+                
+                const address = e.target.querySelector('input[type="text"]').value;
+                const phone = document.getElementById('phoneInput').value;
+                const payment = e.target.querySelector('select').value;
+                const orderId = 'SH-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+                
+                const successMsg = `
+🎉 ORDER SUCCESSFUL!
+
+📦 Order ID: ${orderId}
+📍 Delivery to: ${address}
+📱 Contact: ${phone}
+💳 Payment: ${payment}
+
+Your snacks are being prepared with love and will arrive in 45 minutes!
+                `;
+                
+                alert(successMsg);
+                
+                cart = [];
+                saveCart();
+                updateCartUI();
+                toggleModal('checkoutModal', false);
+                e.target.reset();
+            };
+        }
+
+        function addToCart(productId) {
+            cart = SharedCart.loadSharedCart();
+            const product = products.find(p => p.id === productId);
+            const exists = cart.find(item => String(item.id) === String(productId));
+
+            if (exists) {
+                exists.quantity = SharedCart.getItemQty(exists) + 1;
+                exists.qty = exists.quantity;
+            } else {
+                cart.push(SharedCart.normalizeItem({
+                    name: product.name,
+                    price: product.price,
+                    img: product.img,
+                    image: product.img,
+                    id: String(product.id),
+                    category: 'snacks',
+                    quantity: 1
+                }));
+            }
+
+            saveCart();
+            updateCartUI();
+            cartOverlay.classList.add('active');
+        }
+
+        function changeQty(id, delta) {
+            cart = SharedCart.loadSharedCart();
+            const item = cart.find(i => String(i.id) === String(id));
+            if (!item) return;
+            item.quantity = SharedCart.getItemQty(item) + delta;
+            item.qty = item.quantity;
+            if (item.quantity < 1) cart = cart.filter(i => String(i.id) !== String(id));
+            saveCart();
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            cart = SharedCart.loadSharedCart();
+            cartCount.innerText = cart.reduce((acc, item) => acc + SharedCart.getItemQty(item), 0);
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p style="text-align:center; color:var(--text-muted); margin-top:2rem;">Your cart is empty...</p>';
+            } else {
+                let html = '';
+                SharedCart.groupCartByCategory(cart).forEach(group => {
+                    html += SharedCart.categorySectionOpenHtml(group.label);
+                    group.items.forEach(({ item }) => {
+                        html += `
+                    <div class="cart-item">
+                        <img src="${item.image || item.img}" class="cart-item-img">
+                        <div class="cart-item-details">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">₹${item.price}</div>
+                            <div class="cart-item-qty">
+                                <button class="qty-btn" onclick="changeQty(${item.id}, -1)">-</button>
+                                <span>${SharedCart.getItemQty(item)}</span>
+                                <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+                            </div>
+                        </div>
+                    </div>`;
+                    });
+                    html += SharedCart.categorySectionCloseHtml();
+                });
+                cartItemsContainer.innerHTML = html;
+            }
+
+            const total = cart.reduce((acc, item) => acc + (item.price * SharedCart.getItemQty(item)), 0);
+            cartTotal.innerText = `₹${total}`;
+        }
+
+        function saveCart() {
+            SharedCart.saveSharedCart(cart);
+            cart = SharedCart.loadSharedCart();
+        }
+
+        SharedCart.bindCartRefresh(updateCartUI);
+
+        function toggleModal(id, show) {
+            document.getElementById(id).style.display = show ? 'flex' : 'none';
+        }
+
+        // Simple Reveal Animation on Scroll
+        window.addEventListener('scroll', () => {
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const revealTop = el.getBoundingClientRect().top;
+                if (revealTop < windowHeight - 100) {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        function updatePaymentFields(method) {
+            const container = document.getElementById('paymentCredentials');
+            if (method === 'Cash on Delivery') {
+                container.style.display = 'none';
+                container.innerHTML = '';
+                return;
+            }
+
+            container.style.display = 'block';
+            if (method === 'Credit/Debit Card') {
+                container.innerHTML = `
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <label style="font-size: 0.8rem; color: var(--text-muted);">Card Number</label>
+                        <input type="text" placeholder="XXXX XXXX XXXX XXXX" maxlength="19" 
+                            oninput="this.value = this.value.replace(/[^0-9 ]/g, '').replace(/(.{4})/g, '$1 ').trim()" required>
+                    </div>
+                    <div style="display: flex; gap: 1rem;">
+                        <div class="form-group" style="flex: 1;">
+                            <label style="font-size: 0.8rem; color: var(--text-muted);">Expiry (MM/YY)</label>
+                            <input type="text" placeholder="MM/YY" maxlength="5" 
+                                oninput="this.value = this.value.replace(/[^0-9/]/g, '')" required>
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label style="font-size: 0.8rem; color: var(--text-muted);">CVV</label>
+                            <input type="password" placeholder="***" maxlength="3" 
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
+                        </div>
+                    </div>
+                `;
+            } else if (method === 'UPI / Net Banking') {
+                container.innerHTML = `
+                    <div class="form-group">
+                        <label style="font-size: 0.8rem; color: var(--text-muted);">Enter UPI ID</label>
+                        <input type="text" placeholder="username@upi" required>
+                    </div>
+                    <p style="font-size: 0.7rem; color: var(--primary); margin-top: 0.5rem;">※ QR code will be generated after confirmation</p>
+                `;
+            }
+        }
+
+        init();
+    </script>
+</body>
+
+</html>

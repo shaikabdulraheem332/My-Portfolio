@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ice Magic Cafe | Ultra Premium Luxury Dessert Lounge</title>
+    <link rel="stylesheet" href="lux_style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+    <style>
+        /* Extra styles for new sections */
+        .swiper {
+            width: 100%;
+            padding: 50px 0;
+        }
+
+        .review-card {
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            text-align: center;
+        }
+
+        .review-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            border: 2px solid var(--primary-cyan);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 0 10%;
+        }
+
+        .gallery-item {
+            border-radius: 20px;
+            overflow: hidden;
+            height: 300px;
+            position: relative;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.2);
+        }
+
+        .cart-sidebar {
+            position: fixed;
+            right: -400px;
+            top: 0;
+            width: 400px;
+            height: 100vh;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(30px);
+            z-index: 2000;
+            padding: 40px;
+            transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            border-left: 1px solid var(--glass-border);
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .offer-card {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.2), rgba(255, 0, 255, 0.2));
+            padding: 30px;
+            border-radius: 25px;
+            border: 1px solid var(--primary-pink);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .offer-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) rotate(45deg);
+            }
+
+            100% {
+                transform: translateX(100%) rotate(45deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="cursor"></div>
+    <div id="cursor-follower"></div>
+
+    <div class="bg-particles">
+        <div class="blur-orb orb-1"></div>
+        <div class="blur-orb orb-2"></div>
+        <div class="blur-orb orb-3"></div>
+        <div class="grid-overlay"></div>
+    </div>
+
+    <!-- CART SIDEBAR -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2>Your VIP Cart</h2>
+            <button class="close-cart btn-secondary"
+                style="border-radius: 50%; width: 40px; height: 40px; padding: 0;">&times;</button>
+        </div>
+        <div class="cart-items" id="cart-items-list">
+            <p style="text-align: center; opacity: 0.5; margin-top: 50px;">Your cart is empty. Add some magic!</p>
+        </div>
+        <div class="cart-footer" style="position: absolute; bottom: 40px; width: calc(100% - 80px);">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 1.2rem;">
+                <span>Total:</span>
+                <span id="cart-total">₹0</span>
+            </div>
+            <button class="btn-primary" style="width: 100%;">Checkout Now</button>
+        </div>
+    </div>
+
+    <nav>
+        <div class="logo">ICE MAGIC</div>
+        <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#products">Menu</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#reservation">Reserve</a></li>
+        </ul>
+        <div class="nav-icons">
+            <button class="cart-trigger btn-secondary" id="cart-btn" style="padding: 10px 20px;">
+                <i class="fas fa-shopping-bag"></i> <span id="cart-count">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <section class="hero" id="hero">
+        <div class="hero-content" data-aos="fade-right">
+            <h1>Taste The Magic Of <br><span>Luxury Desserts</span></h1>
+            <p>Premium Cafe Experience • VIP Lounge • Luxury Desserts. <br>Enter the realm of sweet sophistication.</p>
+            <div class="hero-btns">
+                <button class="btn-primary">Reserve Table</button>
+                <button class="btn-secondary">Explore Menu</button>
+            </div>
+        </div>
+        <div class="hero-image" data-aos="zoom-in" data-tilt>
+            <div class="hero-glow"></div>
+            <img src="hero_ice_cream_3d.png" alt="Luxury Ice Cream">
+        </div>
+    </section>
+
+    <section class="stats"
+        style="padding: 80px 10%; display: flex; justify-content: space-around; background: rgba(255,255,255,0.02); backdrop-filter: blur(10px);">
+        <div class="stat-item" data-aos="fade-up">
+            <h2 style="font-size: 3.5rem; color: var(--primary-cyan);">50K+</h2>
+            <p>Happy Guests</p>
+        </div>
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
+            <h2 style="font-size: 3.5rem; color: var(--primary-pink);">100+</h2>
+            <p>Premium Desserts</p>
+        </div>
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
+            <h2 style="font-size: 3.5rem; color: var(--primary-gold);">4.9</h2>
+            <p>Star Rating</p>
+        </div>
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
+            <h2 style="font-size: 3.5rem; color: var(--primary-purple);">15K+</h2>
+            <p>Orders Delivered</p>
+        </div>
+    </section>
+
+    <section id="products">
+        <div class="section-title" data-aos="fade-up">
+            <h2>Our Exquisite Creations</h2>
+            <p>Handcrafted luxury in every bite</p>
+        </div>
+
+        <div class="product-grid">
+            <!-- ICE CREAMS -->
+            <div class="product-card" data-tilt data-aos="fade-up">
+                <div class="badge">Bestseller</div>
+                <div class="product-image"><img src="premium_belgian_chocolate_ice_cream.png" alt="Belgian Chocolate">
+                </div>
+                <div class="product-info">
+                    <h3>Belgian Chocolate Royal</h3>
+                    <div class="product-meta"><span class="price">₹499</span><span class="rating">5.0 <i
+                                class="fas fa-star"></i></span></div>
+                    <button class="add-btn" onclick="addToCart('Belgian Chocolate Royal', 499)">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-tilt data-aos="fade-up">
+                <div class="badge" style="background: var(--primary-cyan);">Trending</div>
+                <div class="product-image"><img
+                        src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=800&q=80"
+                        alt="Strawberry Fantasy"></div>
+                <div class="product-info">
+                    <h3>Strawberry Fantasy</h3>
+                    <div class="product-meta"><span class="price">₹399</span><span class="rating">4.9 <i
+                                class="fas fa-star"></i></span></div>
+                    <button class="add-btn" onclick="addToCart('Strawberry Fantasy', 399)">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card" data-tilt data-aos="fade-up">
+                <div class="badge" style="background: var(--primary-gold);">New</div>
+                <div class="product-image"><img
+                        src="https://images.unsplash.com/photo-1543255006-d6395b6f1171?auto=format&fit=crop&w=800&q=80"
+                        alt="Mango Magic"></div>
+                <div class="product-info">
+                    <h3>Mango Magic Sundae</h3>
+                    <div class="product-meta"><span class="price">₹449</span><span class="rating">4.8 <i
+                                class="fas fa-star"></i></span></div>
+                    <button class="add-btn" onclick="addToCart('Mango Magic Sundae', 449)">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- SHAKES -->
+            <div class="product-card" data-tilt data-aos="fade-up">
+                <div class="badge">Premium</div>
+                <div class="product-image"><img
+                        src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=800&q=80"
+                        alt="Ferrero Shake"></div>
+                <div class="product-info">
+                    <h3>Ferrero Rocher Shake</h3>
+                    <div class="product-meta"><span class="price">₹599</span><span class="rating">5.0 <i
+                                class="fas fa-star"></i></span></div>
+                    <button class="add-btn" onclick="addToCart('Ferrero Rocher Shake', 599)">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- COMBOS -->
+            <div class="product-card" data-tilt data-aos="fade-up">
+                <div class="badge" style="background: var(--primary-purple);">VIP Box</div>
+                <div class="product-image"><img
+                        src="https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=800&q=80"
+                        alt="Celebration Combo"></div>
+                <div class="product-info">
+                    <h3>Celebration Combo</h3>
+                    <div class="product-meta"><span class="price">₹1299</span><span class="rating">5.0 <i
+                                class="fas fa-star"></i></span></div>
+                    <button class="add-btn" onclick="addToCart('Celebration Combo', 1299)">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- OFFERS SECTION -->
+    <section style="padding: 100px 10%;">
+        <div class="section-title" data-aos="fade-up">
+            <h2>Exclusive Privileges</h2>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;">
+            <div class="offer-card" data-aos="flip-left">
+                <h3 style="color: var(--primary-gold);">Buy 1 Get 1</h3>
+                <p>Every Weekend on Premium Sundaes</p>
+                <div style="margin-top: 20px; font-weight: 800; font-size: 1.5rem;">WKND50</div>
+            </div>
+            <div class="offer-card" data-aos="flip-left" data-aos-delay="100"
+                style="border-color: var(--primary-cyan);">
+                <h3 style="color: var(--primary-cyan);">VIP Membership</h3>
+                <p>Get 20% Off on all orders forever</p>
+                <div style="margin-top: 20px; font-weight: 800; font-size: 1.5rem;">JOIN VIP</div>
+            </div>
+            <div class="offer-card" data-aos="flip-left" data-aos-delay="200"
+                style="border-color: var(--primary-orange);">
+                <h3 style="color: var(--primary-orange);">Birthday Bash</h3>
+                <p>Free Dessert Jar on your birthday</p>
+                <div style="margin-top: 20px; font-weight: 800; font-size: 1.5rem;">BDAY MAGIC</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REVIEWS SECTION -->
+    <section style="padding: 100px 10%; background: rgba(0,0,0,0.3);">
+        <div class="section-title" data-aos="fade-up">
+            <h2>What Our VIPs Say</h2>
+        </div>
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="review-card">
+                        <img src="https://i.pravatar.cc/150?u=1" alt="Arjun">
+                        <p>"The VIP lounge feels like a five-star cafe. Amazing atmosphere!"</p>
+                        <h4 style="margin-top: 20px; color: var(--primary-cyan);">Arjun Reddy</h4>
+                        <div style="color: var(--primary-gold);"><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i></div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="review-card">
+                        <img src="https://i.pravatar.cc/150?u=2" alt="Sana">
+                        <p>"Best dessert cafe experience in the city. The chocolate brownie is magic."</p>
+                        <h4 style="margin-top: 20px; color: var(--primary-pink);">Sana Fatima</h4>
+                        <div style="color: var(--primary-gold);"><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i></div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="review-card">
+                        <img src="https://i.pravatar.cc/150?u=3" alt="Faizan">
+                        <p>"Stylish interiors and delicious combos. Loved every bit of it."</p>
+                        <h4 style="margin-top: 20px; color: var(--primary-purple);">Mohammed Faizan</h4>
+                        <div style="color: var(--primary-gold);"><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </section>
+
+    <!-- GALLERY SECTION -->
+    <section id="gallery" style="padding: 100px 0;">
+        <div class="section-title" data-aos="fade-up">
+            <h2>Cinematic Gallery</h2>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item" data-aos="zoom-in"><img src="luxury_cafe_interior.png" alt="Interior"></div>
+            <div class="gallery-item" data-aos="zoom-in"><img
+                    src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=800&q=80"
+                    alt="Waffles"></div>
+            <div class="gallery-item" data-aos="zoom-in"><img
+                    src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=800&q=80"
+                    alt="Cake"></div>
+            <div class="gallery-item" data-aos="zoom-in"><img
+                    src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80"
+                    alt="Seating"></div>
+            <div class="gallery-item" data-aos="zoom-in"><img
+                    src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?auto=format&fit=crop&w=800&q=80"
+                    alt="Ice Cream"></div>
+            <div class="gallery-item" data-aos="zoom-in"><img
+                    src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=800&q=80"
+                    alt="Donut"></div>
+            <div class="gallery-item" data-aos="zoom-in"><img
+                    src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=800&q=80"
+                    alt="Shake"></div>
+            <div class="gallery-item" data-aos="zoom-in"><img
+                    src="https://images.unsplash.com/photo-1553462803-0ec292728448?auto=format&fit=crop&w=800&q=80"
+                    alt="Lounge"></div>
+        </div>
+    </section>
+
+    <!-- RESERVATION -->
+    <section id="reservation" style="padding: 100px 10%;">
+        <div class="reservation-container"
+            style="background: var(--glass-bg); backdrop-filter: blur(20px); padding: 60px; border-radius: 40px; border: 1px solid var(--glass-border);"
+            data-aos="zoom-in">
+            <div class="section-title">
+                <h2>Secure Your Throne</h2>
+                <p>Limited VIP tables available nightly</p>
+            </div>
+            <form style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                <input type="text" placeholder="Your Name"
+                    style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 10px; color: white;">
+                <input type="email" placeholder="Email Address"
+                    style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 10px; color: white;">
+                <input type="tel" placeholder="Phone Number"
+                    style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 10px; color: white;">
+                <select
+                    style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 10px; color: white;">
+                    <option>Select Seating Type</option>
+                    <option>VIP Lounge</option>
+                    <option>Romantic Candle Light</option>
+                    <option>Family Seating</option>
+                </select>
+                <input type="date"
+                    style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 10px; color: white;">
+                <input type="time"
+                    style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 10px; color: white;">
+                <button type="submit" class="btn-primary" style="grid-column: span 2; padding: 20px;">Confirm VIP
+                    Reservation</button>
+            </form>
+        </div>
+    </section>
+
+    <footer
+        style="padding: 100px 10%; background: #000; text-align: center; border-top: 1px solid var(--glass-border);">
+        <div class="logo" style="margin-bottom: 20px;">ICE MAGIC</div>
+        <div class="social-links"
+            style="display: flex; justify-content: center; gap: 30px; margin-bottom: 40px; font-size: 1.5rem;">
+            <i class="fab fa-instagram"></i><i class="fab fa-facebook"></i><i class="fab fa-twitter"></i><i
+                class="fab fa-youtube"></i>
+        </div>
+        <p style="opacity: 0.5;">© 2026 Ice Magic Cafe. Designed for Royalty.</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            pagination: { el: ".swiper-pagination", clickable: true },
+            breakpoints: { 768: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
+        });
+
+        // Cart Logic
+        let cart = [];
+        const cartSidebar = document.getElementById('cart-sidebar');
+        const cartList = document.getElementById('cart-items-list');
+        const cartCount = document.getElementById('cart-count');
+        const cartTotal = document.getElementById('cart-total');
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCart();
+            cartSidebar.classList.add('active');
+        }
+
+        function updateCart() {
+            cartCount.innerText = cart.length;
+            cartList.innerHTML = '';
+            let total = 0;
+            cart.forEach((item, index) => {
+                total += item.price;
+                cartList.innerHTML += `
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">
+                        <span>${item.name}</span>
+                        <span>₹${item.price}</span>
+                    </div>
+                `;
+            });
+            if (cart.length === 0) cartList.innerHTML = '<p style="text-align: center; opacity: 0.5; margin-top: 50px;">Your cart is empty.</p>';
+            cartTotal.innerText = `₹${total}`;
+        }
+
+        document.getElementById('cart-btn').addEventListener('click', () => cartSidebar.classList.add('active'));
+        document.querySelector('.close-cart').addEventListener('click', () => cartSidebar.classList.remove('active'));
+
+        // Custom Cursor
+        const cursor = document.getElementById('cursor');
+        const follower = document.getElementById('cursor-follower');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            setTimeout(() => {
+                follower.style.left = e.clientX - 10 + 'px';
+                follower.style.top = e.clientY - 10 + 'px';
+            }, 80);
+        });
+
+        // Parallax / Movement
+        document.addEventListener('mousemove', (e) => {
+            const orbs = document.querySelectorAll('.blur-orb');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            orbs.forEach((orb, i) => {
+                const speed = (i + 1) * 30;
+                orb.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+            });
+        });
+    </script>
+</body>
+
+</html>
